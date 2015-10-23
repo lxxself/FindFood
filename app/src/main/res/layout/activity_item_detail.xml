@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:hedgehog="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/CoordinatorLayout"
+    android:fitsSystemWindows="true">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/appbar"
+        android:layout_width="match_parent"
+        android:layout_height="256dp"
+        android:fitsSystemWindows="true"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <android.support.design.widget.CollapsingToolbarLayout
+            android:id="@+id/collapsing_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fitsSystemWindows="true"
+            app:contentScrim="?attr/colorPrimary"
+            app:expandedTitleMarginEnd="64dp"
+            app:expandedTitleMarginStart="48dp"
+            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+
+
+            <ImageView
+                android:id="@+id/ivImage"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fitsSystemWindows="true"
+                android:transitionName="@string/transition_item_main_img"
+                android:scaleType="centerCrop"
+                app:layout_collapseMode="parallax"
+                app:layout_collapseParallaxMultiplier="0.7" />
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                app:layout_collapseMode="pin"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+
+
+        </android.support.design.widget.CollapsingToolbarLayout>
+
+
+    </android.support.design.widget.AppBarLayout>
+
+    <android.support.design.widget.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/fab_margin"
+        android:clickable="true"
+        android:src="@drawable/ic_action_add"
+        app:layout_anchor="@+id/appbar"
+        app:layout_anchorGravity="bottom|right|end" />
+    <android.support.v4.widget.NestedScrollView
+        android:padding="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                <RelativeLayout
+                    android:layout_marginTop="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+                    <ImageView
+                        android:id="@+id/iv_local"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_pin_drop"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_alignBottom="@id/iv_local"
+                        android:layout_toRightOf="@id/iv_local"
+                        android:textSize="20sp"
+                        android:text="学林街920号"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+                    <ImageView
+                        android:id="@+id/iv_call"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_call"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_alignBottom="@id/iv_call"
+                        android:layout_toRightOf="@id/iv_call"
+                        android:textSize="20sp"
+                        android:text="8820980"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+                    <ImageView
+                        android:id="@+id/iv_expense"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_shopping_cart"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <TextView
+                        android:layout_alignBottom="@id/iv_expense"
+                        android:layout_toRightOf="@id/iv_expense"
+                        android:textSize="20sp"
+                        android:text="￥57/人"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+                    <ImageView
+                        android:id="@+id/iv_starNum"
+                        android:layout_margin="10dp"
+                        android:src="@drawable/ic_thumb_up"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                    <com.hedgehog.ratingbar.RatingBar
+                        android:layout_alignBottom="@id/iv_starNum"
+                        android:layout_toRightOf="@id/iv_starNum"
+                        android:layout_gravity="center"
+                        android:id="@+id/ratingbar"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        hedgehog:starCount="5"
+                        hedgehog:clickable="false"
+                        hedgehog:starEmpty="@mipmap/ic_star_empty"
+                        hedgehog:starFill="@mipmap/ic_star_fill"
+                        hedgehog:starImageSize="20dp"
+                        />
+                    <!--<TextView-->
+                        <!--android:layout_alignBottom="@id/iv_starNum"-->
+                        <!--android:layout_toRightOf="@id/iv_starNum"-->
+                        <!--android:textSize="20sp"-->
+                        <!--android:text="￥57/人"-->
+                        <!--android:layout_width="wrap_content"-->
+                        <!--android:layout_height="wrap_content" />-->
+                </RelativeLayout>
+                <View
+                    android:background="#d3cfdc"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"/>
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <RelativeLayout
+                        android:layout_marginTop="10dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp">
+                        <ImageView
+                            android:id="@+id/iv_more_pj"
+                            android:layout_alignParentRight="true"
+                            android:layout_margin="10dp"
+                            android:src="@drawable/ic_chevron_right"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                        <TextView
+                            android:layout_alignBottom="@id/iv_more_pj"
+                            android:id="@+id/tv_pingjia"
+                            android:textSize="20sp"
+                            android:text="评价"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </RelativeLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+                            <ImageView
+                                android:id="@+id/iv_touxiang"
+                                android:src="@drawable/touxiang"
+                                android:layout_width="50dp"
+                                android:layout_height="50dp" />
+                            <RelativeLayout
+                                android:layout_weight="1"
+                                android:padding="5dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <TextView
+                                    android:id="@+id/tv_user_name"
+                                    android:text="小夏"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content" />
+                                <com.hedgehog.ratingbar.RatingBar
+                                    android:layout_alignBottom="@id/tv_user_name"
+                                    android:layout_toRightOf="@id/tv_user_name"
+                                    android:layout_gravity="center"
+                                    android:id="@+id/one_ratingbar"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    hedgehog:starCount="5"
+                                    hedgehog:clickable="false"
+                                    hedgehog:starEmpty="@mipmap/ic_star_empty"
+                                    hedgehog:starFill="@mipmap/ic_star_fill"
+                                    hedgehog:starImageSize="15dp"
+                                    />
+                                <LinearLayout
+                                    android:orientation="vertical"
+                                    android:layout_marginTop="5dp"
+                                    android:layout_below="@id/tv_user_name"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content">
+                                    <TextView
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:text="这个周六终于到知味观里面来吃吃吃了，以往都是在外卖窗口买的拎不动为止。由于考虑到已经买了很多点心，对正餐并没有很偏爱的我们终于就到一楼点了些汤汤水水，配我们的点心，正好。"
+                                        android:id="@+id/textView2"
+                                        android:layout_gravity="center_horizontal" />
+                                    <LinearLayout
+                                        android:layout_marginTop="10dp"
+                                        android:id="@+id/pj_layout"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content">
+                                        <ImageView
+                                        android:padding="2dp"
+                                        android:src="@drawable/qm1"
+                                        android:layout_width="80dp"
+                                        android:layout_height="80dp" />
+                                        <ImageView
+                                        android:padding="2dp"
+                                        android:src="@drawable/qm2"
+                                        android:layout_width="80dp"
+                                        android:layout_height="80dp" />
+                                        <ImageView
+                                        android:padding="2dp"
+                                        android:src="@drawable/qm3"
+                                        android:layout_width="80dp"
+                                        android:layout_height="80dp" />
+
+
+
+                                    </LinearLayout>
+                                </LinearLayout>
+                            </RelativeLayout>
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </android.support.v4.widget.NestedScrollView>
+
+
+</android.support.design.widget.CoordinatorLayout>
