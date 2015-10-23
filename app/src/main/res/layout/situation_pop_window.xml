@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:id="@+id/cardview_pop"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/ic_pin_drop"
+                    android:src="@drawable/ic_pin_drop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginLeft="5dp"
+                    android:textSize="15sp"
+                    android:layout_alignBottom="@id/ic_pin_drop"
+                    android:layout_toRightOf="@id/ic_pin_drop"
+                    android:text="经度:120.1 纬度:30.2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/ic_access_time"
+                    android:src="@drawable/ic_access_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginLeft="5dp"
+                    android:textSize="15sp"
+                    android:layout_alignBottom="@id/ic_access_time"
+                    android:layout_toRightOf="@id/ic_access_time"
+                    android:text="2015-10-18 14:43 星期日"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/ic_wb_cloudy"
+                    android:src="@drawable/ic_wb_cloudy"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/tv_weather"
+                    android:layout_marginLeft="5dp"
+                    android:textSize="15sp"
+                    android:layout_alignBottom="@id/ic_wb_cloudy"
+                    android:layout_toRightOf="@id/ic_wb_cloudy"
+                    android:text="晴转多云 23℃/16℃"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+
+            </RelativeLayout>
+                <me.kaede.tagview.TagView
+                    android:id="@+id/wuli_tags"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:lineMargin="5dp"
+                    app:tagMargin="3dp"
+                    app:textPaddingBottom="5dp"
+                    app:textPaddingLeft="8dp"
+                    app:textPaddingRight="8dp"
+                    app:textPaddingTop="5dp" >
+                </me.kaede.tagview.TagView>
+
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+    <View
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="#817272"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+    <LinearLayout
+
+        android:orientation="vertical"
+        android:layout_width="400dp"
+        android:layout_height="wrap_content">
+        <RelativeLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/ic_person_add"
+                android:src="@drawable/ic_person_add"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <me.kaede.tagview.TagView
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/ic_person_add"
+                android:layout_alignBaseline="@id/ic_person_add"
+                android:id="@+id/renshu_tags"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:lineMargin="5dp"
+                app:tagMargin="3dp"
+                app:textPaddingBottom="5dp"
+                app:textPaddingLeft="8dp"
+                app:textPaddingRight="8dp"
+                app:textPaddingTop="5dp" >
+            </me.kaede.tagview.TagView>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/ic_people"
+                android:src="@drawable/ic_people"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <me.kaede.tagview.TagView
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/ic_people"
+                android:layout_alignBaseline="@id/ic_people"
+                android:id="@+id/tongban_tags"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:lineMargin="5dp"
+                app:tagMargin="3dp"
+                app:textPaddingBottom="5dp"
+                app:textPaddingLeft="8dp"
+                app:textPaddingRight="8dp"
+                app:textPaddingTop="5dp" >
+            </me.kaede.tagview.TagView>
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <ImageView
+                android:id="@+id/ic_local_restaurant"
+                android:src="@drawable/ic_local_restaurant"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <me.kaede.tagview.TagView
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/ic_local_restaurant"
+                android:layout_alignBaseline="@id/ic_local_restaurant"
+                android:id="@+id/mudi_tags"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:lineMargin="5dp"
+                app:tagMargin="3dp"
+                app:textPaddingBottom="5dp"
+                app:textPaddingLeft="8dp"
+                app:textPaddingRight="8dp"
+                app:textPaddingTop="5dp" >
+            </me.kaede.tagview.TagView>
+        </RelativeLayout>
+    </LinearLayout>
+    <View
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="#817272"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+    <LinearLayout
+
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <TextView
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:text="逻辑情境"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <me.kaede.tagview.TagView
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/luoji_tags"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    app:lineMargin="5dp"
+                    app:tagMargin="3dp"
+                    app:textPaddingBottom="5dp"
+                    app:textPaddingLeft="8dp"
+                    app:textPaddingRight="8dp"
+                    app:textPaddingTop="5dp" >
+                </me.kaede.tagview.TagView>
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
+</LinearLayout>
