@@ -54,7 +54,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </RelativeLayout>
-            <LinearLayout
+            <RelativeLayout
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -66,19 +66,21 @@
                     <!--android:id="@+id/ratingBar"-->
                     <!--android:maxWidth="50dp"-->
                     <!--android:minHeight="20dp" />-->
-                <com.hedgehog.ratingbar.RatingBar
-                    android:layout_gravity="center"
+                <io.techery.properratingbar.ProperRatingBar
                     android:id="@+id/ratingbar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    hedgehog:starCount="5"
-                    hedgehog:clickable="false"
-                    hedgehog:starEmpty="@mipmap/ic_star_empty"
-                    hedgehog:starFill="@mipmap/ic_star_fill"
-                    hedgehog:starImageSize="15dp"
+                    android:layout_centerVertical="true"
+                    app:prb_defaultRating="5"
+                    app:prb_tickNormalDrawable="@drawable/ic_star_normal"
+                    app:prb_tickSelectedDrawable="@drawable/ic_star_selected"
+                    app:prb_tickSpacing="1dp"
+                    app:prb_totalTicks="5"
+                    app:prb_clickable="false"
                     />
                 <TextView
+                    android:layout_toRightOf="@id/ratingbar"
+                    android:layout_centerVertical="true"
                     android:id="@+id/listitem_price"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -87,7 +89,7 @@
                     android:paddingTop="3dp"
                     android:textColor="@color/secondary_text_default_material_light"
                     android:textSize="@dimen/abc_text_size_caption_material" />
-            </LinearLayout>
+            </RelativeLayout>
 
             <me.kaede.tagview.TagView
                 app:lineMargin="5dp"

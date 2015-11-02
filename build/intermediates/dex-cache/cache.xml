@@ -2,67 +2,11 @@
 <items version="2" >
 
     <item
-        jar="E:\Date\CodeSpace\AndroidStudioProjects\BiShe\FindFood\app\build\intermediates\exploded-aar\com.hedgehog.ratingbar\app\1.0.2\jars\classes.jar"
+        jar="E:\Date\CodeSpace\AndroidStudioProjects\BiShe\FindFood\app\build\intermediates\exploded-aar\ratingbar\jars\classes.jar"
         jumboMode="false"
         revision="23.0.0"
-        sha1="67c347dd53528650b811790f85da5088bcddab78">
-        <dex dex="E:\Date\CodeSpace\AndroidStudioProjects\BiShe\FindFood\app\build\intermediates\pre-dexed\debug\classes-112251fe49b3916a77390f5d4ac03e9b68ef9833.jar" />
-    </item>
-    <item
-        jar="E:\Date\CodeSpace\AndroidStudioProjects\BiShe\FindFood\app\build\intermediates\exploded-aar\com.android.support\design\23.0.1\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0"
-        sha1="e5c61a3169221a89654ffcaaed47bba51cf071ad">
-        <dex dex="E:\Date\CodeSpace\AndroidStudioProjects\BiShe\FindFood\app\build\intermediates\pre-dexed\debug\classes-9db9f1cd45bfd86f2300d97eac81e37e22f35605.jar" />
-    </item>
-    <item
-        jar="E:\Date\SDK\android-sdk\extras\android\m2repository\com\android\support\support-annotations\23.0.1\support-annotations-23.0.1.jar"
-        jumboMode="false"
-        revision="23.0.0"
-        sha1="1fce89a6428c51467090d7f424e4c9c3dbd55f7e">
-        <dex dex="E:\Date\CodeSpace\AndroidStudioProjects\BiShe\FindFood\app\build\intermediates\pre-dexed\debug\support-annotations-23.0.1-0b9f38aba2c765a032d1459d221f6265f43f374e.jar" />
-    </item>
-    <item
-        jar="E:\Date\CodeSpace\AndroidStudioProjects\BiShe\FindFood\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0"
-        sha1="c31e21b53ff2f74664e498248d01453a32e32d48">
-        <dex dex="E:\Date\CodeSpace\AndroidStudioProjects\BiShe\FindFood\app\build\intermediates\pre-dexed\debug\classes-9c3039465a14500311730a584d9a1bd71a5ac439.jar" />
-    </item>
-    <item
-        jar="E:\Date\CodeSpace\AndroidStudioProjects\BiShe\FindFood\app\build\intermediates\exploded-aar\com.android.support\support-v4\23.0.1\jars\libs\internal_impl-23.0.1.jar"
-        jumboMode="false"
-        revision="23.0.0"
-        sha1="aa92916125166649d8ad4ba3940c3dd7515596d3">
-        <dex dex="E:\Date\CodeSpace\AndroidStudioProjects\BiShe\FindFood\app\build\intermediates\pre-dexed\debug\internal_impl-23.0.1-63ce1723db39bbfdd94dad395402b080f26438d4.jar" />
-    </item>
-    <item
-        jar="E:\Date\CodeSpace\AndroidStudioProjects\BiShe\FindFood\app\build\intermediates\exploded-aar\com.android.support\recyclerview-v7\23.0.0\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0"
-        sha1="40e7757d9b06db670062ddb3cf5b30c129b2fd8c">
-        <dex dex="E:\Date\CodeSpace\AndroidStudioProjects\BiShe\FindFood\app\build\intermediates\pre-dexed\debug\classes-a730eea3e582b3e4314ed2a43eb217efa3ebf28d.jar" />
-    </item>
-    <item
-        jar="E:\Date\CodeSpace\AndroidStudioProjects\BiShe\FindFood\app\build\intermediates\exploded-aar\FindFood\library\unspecified\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0"
-        sha1="9344fbb066a0feab79a34f4eea20f98d73600a2c">
-        <dex dex="E:\Date\CodeSpace\AndroidStudioProjects\BiShe\FindFood\app\build\intermediates\pre-dexed\debug\classes-c77ac85c41374167518099e00182c4fb9815d5b6.jar" />
-    </item>
-    <item
-        jar="E:\Date\CodeSpace\AndroidStudioProjects\BiShe\FindFood\app\build\intermediates\exploded-aar\com.android.support\cardview-v7\23.0.1\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0"
-        sha1="39ae02ce40c3ac828abbf780ce0ff5d7a28b7d6a">
-        <dex dex="E:\Date\CodeSpace\AndroidStudioProjects\BiShe\FindFood\app\build\intermediates\pre-dexed\debug\classes-b7974faf8a78f1cbcf001efe866c19dedff18f70.jar" />
-    </item>
-    <item
-        jar="E:\Date\CodeSpace\AndroidStudioProjects\BiShe\FindFood\app\build\intermediates\exploded-aar\com.android.support\appcompat-v7\23.0.1\jars\classes.jar"
-        jumboMode="false"
-        revision="23.0.0"
-        sha1="d86429b0f0b3f3cafbeb78dda1b9d89119ccb05d">
-        <dex dex="E:\Date\CodeSpace\AndroidStudioProjects\BiShe\FindFood\app\build\intermediates\pre-dexed\debug\classes-698d142ca525b3b0fbeb7e21aaa18c1ebe411ead.jar" />
+        sha1="24aed6305a8b603ed2b4bfe2804eb0feeab5ec87">
+        <dex dex="E:\Date\CodeSpace\AndroidStudioProjects\BiShe\FindFood\app\build\intermediates\pre-dexed\debug\classes-e93ff6e47be74839228397e49f22b60d35e6d0c7.jar" />
     </item>
 
 </items>
