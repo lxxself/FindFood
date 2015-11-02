@@ -64,7 +64,7 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRe
         Log.d("onBindViewHolder", versionViewHolder.title.getText().toString() + "--" + i);
         versionViewHolder.title.setText(versionModels.get(i).getName());
         versionViewHolder.price.setText("￥" + versionModels.get(i).getPrice() + "/人");
-        versionViewHolder.ratingBar.setStar((int) versionModels.get(i).getRatingNum());
+        versionViewHolder.ratingBar.setRating((int) versionModels.get(i).getRatingNum());
         versionViewHolder.distance.setText(versionModels.get(i).getDistance() + "km");
         if (BitmapFactory.decodeFile(versionModels.get(i).getPicPath()) != null) {
             versionViewHolder.imageView.setImageBitmap(BitmapFactory.decodeFile(versionModels.get(i).getPicPath()));
@@ -86,7 +86,7 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRe
         TextView title;
         TextView distance;
         TextView price;
-        com.hedgehog.ratingbar.RatingBar ratingBar;
+        io.techery.properratingbar.ProperRatingBar ratingBar;
         ImageView imageView;
         me.kaede.tagview.TagView tagView;
 
@@ -97,7 +97,7 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRe
             title = (TextView) itemView.findViewById(R.id.listitem_name);
             price = (TextView) itemView.findViewById(R.id.listitem_price);
             distance = (TextView) itemView.findViewById(R.id.distance);
-            ratingBar = (com.hedgehog.ratingbar.RatingBar) itemView.findViewById(R.id.ratingbar);
+            ratingBar = ( io.techery.properratingbar.ProperRatingBar) itemView.findViewById(R.id.ratingbar);
             imageView = (ImageView) itemView.findViewById(R.id.imageView);
             tagView = (TagView) itemView.findViewById(R.id.sometagView);
 

@@ -2,6 +2,7 @@ package com.lxxself.findfood.activity;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Build;
@@ -157,11 +158,10 @@ public class MainActivity extends NetLocationActivity
     private String getCurrentTime() {
         Calendar c = Calendar.getInstance();
         c.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         Date date = new Date(System.currentTimeMillis());
         String currentTime = format.format(date)+" ";
         Log.d(TAG, currentTime);
-
         String dayOfWeek = "";
         switch (c.get(Calendar.DAY_OF_WEEK)) {
             case 1:

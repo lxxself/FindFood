@@ -133,19 +133,19 @@
                         android:src="@drawable/ic_thumb_up"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
-                    <com.hedgehog.ratingbar.RatingBar
-                        android:layout_alignBottom="@id/iv_starNum"
-                        android:layout_toRightOf="@id/iv_starNum"
-                        android:layout_gravity="center"
+                    <io.techery.properratingbar.ProperRatingBar
+                        android:layout_centerVertical="true"
                         android:id="@+id/ratingbar"
+                        android:layout_toRightOf="@id/iv_starNum"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        hedgehog:starCount="5"
-                        hedgehog:clickable="false"
-                        hedgehog:starEmpty="@mipmap/ic_star_empty"
-                        hedgehog:starFill="@mipmap/ic_star_fill"
-                        hedgehog:starImageSize="20dp"
+                        android:layout_gravity="center_horizontal"
+                        app:prb_defaultRating="5"
+                        app:prb_tickNormalDrawable="@drawable/ic_star_normal"
+                        app:prb_tickSelectedDrawable="@drawable/ic_star_selected"
+                        app:prb_tickSpacing="1dp"
+                        app:prb_totalTicks="5"
+                        app:prb_clickable="true"
                         />
                     <!--<TextView-->
                         <!--android:layout_alignBottom="@id/iv_starNum"-->
@@ -203,19 +203,17 @@
                                     android:text="小夏"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content" />
-                                <com.hedgehog.ratingbar.RatingBar
-                                    android:layout_alignBottom="@id/tv_user_name"
+                                <io.techery.properratingbar.ProperRatingBar
                                     android:layout_toRightOf="@id/tv_user_name"
-                                    android:layout_gravity="center"
-                                    android:id="@+id/one_ratingbar"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
-                                    hedgehog:starCount="5"
-                                    hedgehog:clickable="false"
-                                    hedgehog:starEmpty="@mipmap/ic_star_empty"
-                                    hedgehog:starFill="@mipmap/ic_star_fill"
-                                    hedgehog:starImageSize="15dp"
+                                    android:layout_gravity="center_horizontal"
+                                    app:prb_defaultRating="5"
+                                    app:prb_tickNormalDrawable="@drawable/ic_star_normal"
+                                    app:prb_tickSelectedDrawable="@drawable/ic_star_selected"
+                                    app:prb_tickSpacing="1dp"
+                                    app:prb_totalTicks="5"
+                                    app:prb_clickable="true"
                                     />
                                 <LinearLayout
                                     android:orientation="vertical"
