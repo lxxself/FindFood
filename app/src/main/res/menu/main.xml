@@ -5,6 +5,8 @@
         android:id="@+id/ab_search"
         android:orderInCategory="80"
         android:title="action_search"
+        android:iconifiedByDefault="true"
+        android:imeOptions="actionSearch"
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="ifRoom"/>
     <item android:id="@+id/action_settings"

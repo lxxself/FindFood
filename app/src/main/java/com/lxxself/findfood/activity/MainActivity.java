@@ -2,6 +2,8 @@ package com.lxxself.findfood.activity;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -9,9 +11,10 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
@@ -22,20 +25,28 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
+import android.widget.TextView;
 
+import com.google.android.gms.vision.barcode.Barcode;
 import com.lxxself.findfood.R;
 import com.lxxself.findfood.fragment.DingdanFragment;
 import com.lxxself.findfood.fragment.FaxianFragment;
 import com.lxxself.findfood.fragment.ShouyeFragment;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 import me.kaede.tagview.OnTagClickListener;
 import me.kaede.tagview.TagView;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+
+
+public class MainActivity extends NetLocationActivity
+        implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener, SearchView.OnCloseListener{
 
     private Toolbar toolbar;
     private final List<Fragment> mFragmentList = new ArrayList<>();
@@ -43,6 +54,9 @@ public class MainActivity extends AppCompatActivity
     public String TAG = "MainActivity";
     private Context mContext;
     private FloatingActionButton fab;
+    private SearchView searchView;
+    private MenuItem mMenuItem;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,14 +66,13 @@ public class MainActivity extends AppCompatActivity
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("觅食");
-        
+
         setSupportActionBar(toolbar);
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.CoordinatorLayout);
         fab = (FloatingActionButton)findViewById(R.id.fab);
-
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -80,7 +93,6 @@ public class MainActivity extends AppCompatActivity
 
         switchToShouye();
 
-
     }
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
@@ -89,6 +101,12 @@ public class MainActivity extends AppCompatActivity
         View contentView = LayoutInflater.from(mContext).inflate(R.layout.situation_pop_window, null);
         final PopupWindow popupWindow = new PopupWindow(contentView,
               ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        TextView location = (TextView) contentView.findViewById(R.id.tv_location);
+        TextView currentTime = (TextView) contentView.findViewById(R.id.tv_time);
+        TextView weather = (TextView) contentView.findViewById(R.id.tv_weather);
+        location.setText(mLocationLatlngText);
+        currentTime.setText(getCurrentTime());
+        weather.setText(mTemperature+"  "+mWeather);
         final TagView wuliTagGroup = (TagView) contentView.findViewById(R.id.wuli_tags);
         wuliTagGroup.addTags(new String[]{"十六街区商业街", "下午", "晴朗"});
         wuliTagGroup.setOnTagClickListener(new OnTagClickListener() {
@@ -96,11 +114,8 @@ public class MainActivity extends AppCompatActivity
             @Override
             public void onTagClick(me.kaede.tagview.Tag tag, int position) {
 //                wuliTagGroup.defaultTags();
-
 //                tag.tagSelect();
 //                wuliTagGroup.drawTags();
-
-
 //                Toast.makeText(MainActivity.this,tag.text,Toast.LENGTH_LONG).show();
             }
         });
@@ -135,10 +150,44 @@ public class MainActivity extends AppCompatActivity
         });
         popupWindow.setBackgroundDrawable(getResources().getDrawable(
                 android.R.drawable.screen_background_light));
-        popupWindow.showAtLocation((View) fab.getParent(), Gravity.BOTTOM, 0, 100);
+//        popupWindow.showAtLocation((View) fab, Gravity.NO_GRAVITY, 0, fab.getHeight());
+        popupWindow.showAtLocation(fab,Gravity.BOTTOM,0,-fab.getHeight());
+    }
 
-//        popupWindow.showAsDropDown(fab,-100,-(fab.getHeight()+300));
+    private String getCurrentTime() {
+        Calendar c = Calendar.getInstance();
+        c.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss");
+        Date date = new Date(System.currentTimeMillis());
+        String currentTime = format.format(date)+" ";
+        Log.d(TAG, currentTime);
 
+        String dayOfWeek = "";
+        switch (c.get(Calendar.DAY_OF_WEEK)) {
+            case 1:
+                dayOfWeek = "星期天";
+                break;
+            case 2:
+                dayOfWeek = "星期一";
+                break;
+            case 3:
+                dayOfWeek = "星期二";
+                break;
+            case 4:
+                dayOfWeek = "星期三";
+                break;
+            case 5:
+                dayOfWeek = "星期四";
+                break;
+            case 6:
+                dayOfWeek = "星期五";
+                break;
+            case 7:
+                dayOfWeek = "星期六";
+                break;
+        }
+        currentTime = currentTime +"  "+dayOfWeek;
+        return currentTime;
     }
 
 
@@ -147,7 +196,7 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        }else {
             super.onBackPressed();
         }
     }
@@ -156,6 +205,11 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+        mMenuItem = menu.findItem(R.id.ab_search);
+        searchView = (SearchView) MenuItemCompat.getActionView(mMenuItem);
+        searchView.setQueryHint("输入餐厅名、地点");
+        searchView.setOnQueryTextListener(this);
+        searchView.setOnCloseListener(this);
         return true;
     }
 
@@ -215,4 +269,24 @@ public class MainActivity extends AppCompatActivity
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new FaxianFragment()).commit();
         toolbar.setTitle("设置");
     }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        Log.d("onQueryTextSubmit",query);
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new ShouyeFragment(2, query)).commit();
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new ShouyeFragment(1,"")).commit();
+        return false;
+    }
+
+    @Override
+    public boolean onClose() {
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new ShouyeFragment(0,"")).commit();
+        return false;
+    }
+
 }
