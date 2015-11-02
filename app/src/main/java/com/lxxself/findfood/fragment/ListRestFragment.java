@@ -27,8 +27,14 @@ import java.util.List;
  */
 @SuppressLint("ValidFragment")
 public class ListRestFragment extends Fragment {
-    int color;
+    private int color;
+    private String key;
     RestaurantRecyclerAdapter adapter;
+
+    public ListRestFragment(int color, String key) {
+        this.color = color;
+        this.key = key;
+    }
     public ListRestFragment(int color) {
         this.color = color;
     }
