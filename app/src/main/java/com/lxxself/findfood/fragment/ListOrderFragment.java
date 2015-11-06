@@ -50,7 +50,7 @@ public class ListOrderFragment extends Fragment {
 
         List<RestaurantItem> list = new ArrayList<RestaurantItem>();
         list.addAll(VersionModel.getRsList());
-        adapter = new RestaurantRecyclerAdapter(list);
+        adapter =new RestaurantRecyclerAdapter(getContext(),list);
 
         recyclerView.setAdapter(adapter);
 

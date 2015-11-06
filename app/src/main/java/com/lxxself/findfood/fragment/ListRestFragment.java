@@ -51,7 +51,8 @@ public class ListRestFragment extends Fragment {
 
         List<RestaurantItem> list = new ArrayList<RestaurantItem>();
         list.addAll(VersionModel.getRsList());
-        adapter = new RestaurantRecyclerAdapter(list);
+        adapter =new RestaurantRecyclerAdapter(getContext(),list);
+//        adapter = new RestaurantRecyclerAdapter(list);
         adapter.SetOnItemClickListener(new RestaurantRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {

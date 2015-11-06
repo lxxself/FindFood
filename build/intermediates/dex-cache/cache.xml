@@ -2,11 +2,11 @@
 <items version="2" >
 
     <item
-        jar="E:\Date\CodeSpace\AndroidStudioProjects\BiShe\FindFood\app\build\intermediates\exploded-aar\ratingbar\jars\classes.jar"
+        jar="C:\Users\Administrator\.gradle\caches\modules-2\files-2.1\cn.bmob.android\bmob-sdk\3.4.3\257822e98adcdb2617cafb2b818db6c376bc3c7d\bmob-sdk-3.4.3.jar"
         jumboMode="false"
         revision="23.0.0"
-        sha1="24aed6305a8b603ed2b4bfe2804eb0feeab5ec87">
-        <dex dex="E:\Date\CodeSpace\AndroidStudioProjects\BiShe\FindFood\app\build\intermediates\pre-dexed\debug\classes-e93ff6e47be74839228397e49f22b60d35e6d0c7.jar" />
+        sha1="257822e98adcdb2617cafb2b818db6c376bc3c7d">
+        <dex dex="E:\Date\CodeSpace\AndroidStudioProjects\BiShe\FindFood\app\build\intermediates\pre-dexed\debug\bmob-sdk-3.4.3-d11aff2dfbf74c6de410b7d426d976357295cd03.jar" />
     </item>
 
 </items>

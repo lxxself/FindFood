@@ -2,9 +2,8 @@ package com.lxxself.findfood.activity;
 
 import android.annotation.TargetApi;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
@@ -25,10 +24,10 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.google.android.gms.vision.barcode.Barcode;
 import com.lxxself.findfood.R;
 import com.lxxself.findfood.fragment.DingdanFragment;
 import com.lxxself.findfood.fragment.FaxianFragment;
@@ -41,7 +40,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimeZone;
 
+import cn.bmob.v3.Bmob;
+import cn.bmob.v3.BmobUser;
 import me.kaede.tagview.OnTagClickListener;
+import me.kaede.tagview.Tag;
 import me.kaede.tagview.TagView;
 
 
@@ -50,6 +52,7 @@ public class MainActivity extends NetLocationActivity
         implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener, SearchView.OnCloseListener{
 
     private Toolbar toolbar;
+    private ImageView ivAvatar;
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
     public String TAG = "MainActivity";
@@ -57,6 +60,8 @@ public class MainActivity extends NetLocationActivity
     private FloatingActionButton fab;
     private SearchView searchView;
     private MenuItem mMenuItem;
+    private SharedPreferences sp;
+    private boolean isSigned;
 
 
     @Override
@@ -64,6 +69,8 @@ public class MainActivity extends NetLocationActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mContext = this;
+        Bmob.initialize(this, "8bb928ff8b09ee63a01e4c72a3090825");
+        checkSignState();
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("觅食");
@@ -93,8 +100,44 @@ public class MainActivity extends NetLocationActivity
         navigationView.setNavigationItemSelectedListener(this);
 
         switchToShouye();
+        setAvatar();
 
     }
+
+    private void checkSignState() {
+        BmobUser bmobUser = BmobUser.getCurrentUser(this);
+        sp = getSharedPreferences("baisc", MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        if(bmobUser != null){
+            editor.putBoolean("isSigned", true);
+        }else{
+            editor.putBoolean("isSigned", false);
+        }
+
+    }
+
+    private void setAvatar() {
+        //不知原因，在xml添加app:headerLayout="@layout/nav_header_main" 无法添加点击事件
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
+        ivAvatar = (ImageView) headerView.findViewById(R.id.profile_image);
+        if (isSigned) {
+//            ivAvatar.setImageBitmap();
+        }
+        ivAvatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent toSignIntent = new Intent();
+                if (isSigned) {
+
+                } else {
+                    toSignIntent.setClass(MainActivity.this, LoginActivity.class);
+                }
+                startActivity(toSignIntent);
+            }
+        });
+    }
+
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private void showSituation(View v) {
@@ -134,8 +177,8 @@ public class MainActivity extends NetLocationActivity
         TagView luojiTagGroup = (TagView) contentView.findViewById(R.id.luoji_tags);
         luojiTagGroup.addTags(new String[]{"开心", "兴奋", "肚子饿", "玩乐", "肚子饿", "玩乐", "肚子饿",
                 "玩乐", "肚子饿", "玩乐", "肚子饿", "玩乐", "肚子饿", "玩乐", "肚子饿", "玩乐", "肚子饿", "玩乐"});
-        me.kaede.tagview.Tag luojitag = new me.kaede.tagview.Tag("+添加标签");
-
+        Tag luojitag = new Tag("+添加标签");
+        luojitag.setIsAddButton(true);
         luojiTagGroup.addTag(luojitag);
 
         popupWindow.setAnimationStyle(R.style.popwin_anim_style);
@@ -227,6 +270,8 @@ public class MainActivity extends NetLocationActivity
 
         return super.onOptionsItemSelected(item);
     }
+
+
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

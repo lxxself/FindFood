@@ -1,6 +1,5 @@
 package com.lxxself.findfood.adapter;
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,7 +15,6 @@ import com.lxxself.findfood.model.RestaurantItem;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.kaede.tagview.Tag;
 import me.kaede.tagview.TagView;
 
 /**
@@ -27,9 +25,12 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRe
     List<Integer> addedList = new ArrayList<Integer>();
     public static List<String> titleList = new ArrayList<String>();
     public static List<String> priceList = new ArrayList<String>();
+    private static TagView tagView ;
     private static final String[] tempTag = {"下沙","美味","好吃","环境好"};
     Context context;
     OnItemClickListener clickListener;
+
+
 
 
     public void setHomeActivitiesList(Context context) {
@@ -44,6 +45,12 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRe
     public RestaurantRecyclerAdapter(Context context) {
         this.context = context;
         setHomeActivitiesList(context);
+    }
+    public RestaurantRecyclerAdapter(Context context,List<RestaurantItem> versionModels) {
+        this.context = context;
+        this.versionModels = versionModels;
+        tagView = new TagView(context);
+        tagView.addTags(tempTag);
     }
 
 
@@ -66,11 +73,11 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRe
         versionViewHolder.price.setText("￥" + versionModels.get(i).getPrice() + "/人");
         versionViewHolder.ratingBar.setRating((int) versionModels.get(i).getRatingNum());
         versionViewHolder.distance.setText(versionModels.get(i).getDistance() + "km");
-        if (BitmapFactory.decodeFile(versionModels.get(i).getPicPath()) != null) {
-            versionViewHolder.imageView.setImageBitmap(BitmapFactory.decodeFile(versionModels.get(i).getPicPath()));
-        }
+//        if (BitmapFactory.decodeFile(versionModels.get(i).getPicPath()) != null) {
+//            versionViewHolder.imageView.setImageBitmap(BitmapFactory.decodeFile(versionModels.get(i).getPicPath()));
+//        }
         Log.d("onBindViewHolder", versionViewHolder.tagView.getTags().size() + "");
-        versionViewHolder.tagView.setTags(tempTag);
+        versionViewHolder.tagView = tagView;
 
 
     }
@@ -98,9 +105,8 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRe
             price = (TextView) itemView.findViewById(R.id.listitem_price);
             distance = (TextView) itemView.findViewById(R.id.distance);
             ratingBar = ( io.techery.properratingbar.ProperRatingBar) itemView.findViewById(R.id.ratingbar);
-            imageView = (ImageView) itemView.findViewById(R.id.imageView);
+            imageView = (ImageView) itemView.findViewById(R.id.iv_pic);
             tagView = (TagView) itemView.findViewById(R.id.sometagView);
-
             itemView.setOnClickListener(this);
         }
 
