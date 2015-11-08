@@ -32,13 +32,13 @@ public class FaxianFragment extends Fragment {
                 viewPager.setCurrentItem(tab.getPosition());
                 switch (tab.getPosition()) {
                     case 0:
-                        showToast("tab0");
+
                         break;
                     case 1:
-                        showToast("tab1");
+
                         break;
                     case 2:
-                        showToast("tab2");
+
                         break;
                 }
             }

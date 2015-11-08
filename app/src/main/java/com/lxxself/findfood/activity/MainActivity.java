@@ -32,6 +32,7 @@ import com.lxxself.findfood.R;
 import com.lxxself.findfood.fragment.DingdanFragment;
 import com.lxxself.findfood.fragment.FaxianFragment;
 import com.lxxself.findfood.fragment.ShouyeFragment;
+import com.lxxself.findfood.model.RestaurantItem;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,6 +43,7 @@ import java.util.TimeZone;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.listener.SaveListener;
 import me.kaede.tagview.OnTagClickListener;
 import me.kaede.tagview.Tag;
 import me.kaede.tagview.TagView;
@@ -52,7 +54,6 @@ public class MainActivity extends NetLocationActivity
         implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener, SearchView.OnCloseListener{
 
     private Toolbar toolbar;
-    private ImageView ivAvatar;
     private final List<Fragment> mFragmentList = new ArrayList<>();
     private final List<String> mFragmentTitleList = new ArrayList<>();
     public String TAG = "MainActivity";
@@ -61,16 +62,15 @@ public class MainActivity extends NetLocationActivity
     private SearchView searchView;
     private MenuItem mMenuItem;
     private SharedPreferences sp;
-    private boolean isSigned;
-
-
+    private BmobUser bmobUser;
+    private View headerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mContext = this;
         Bmob.initialize(this, "8bb928ff8b09ee63a01e4c72a3090825");
-        checkSignState();
+
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("觅食");
@@ -97,43 +97,62 @@ public class MainActivity extends NetLocationActivity
         toggle.syncState();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
         navigationView.setNavigationItemSelectedListener(this);
 
         switchToShouye();
+//        final RestaurantItem r = new RestaurantItem();
+//        r.setTags(new String[]{"浙江", "好吃", "美味"});
+//        r.setPicPath("http://ww4.sinaimg.cn/large/7a8aed7bjw1exr0p4r0h3j20oy15445o.jpg");
+//        r.setRatingNum(5);
+//        r.setDistance(3.5f);
+//        r.setName("青木餐厅");
+//        r.setPrice(78.5f);
+//        r.save(this, new SaveListener() {
+//            @Override
+//            public void onSuccess() {
+//                Log.d(TAG, "成功" + r.getObjectId());
+//
+//            }
+//
+//            @Override
+//            public void onFailure(int i, String s) {
+//                Log.e(TAG, "失败" + s.toString());
+//            }
+//        });
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
         setAvatar();
-
     }
 
-    private void checkSignState() {
-        BmobUser bmobUser = BmobUser.getCurrentUser(this);
-        sp = getSharedPreferences("baisc", MODE_PRIVATE);
-        SharedPreferences.Editor editor = sp.edit();
-        if(bmobUser != null){
-            editor.putBoolean("isSigned", true);
-        }else{
-            editor.putBoolean("isSigned", false);
-        }
 
-    }
+
 
     private void setAvatar() {
+        bmobUser = BmobUser.getCurrentUser(this);
         //不知原因，在xml添加app:headerLayout="@layout/nav_header_main" 无法添加点击事件
-        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
-        View headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
-        ivAvatar = (ImageView) headerView.findViewById(R.id.profile_image);
-        if (isSigned) {
+        ImageView ivAvatar = (ImageView) headerView.findViewById(R.id.profile_image);
+        TextView tvUsername = (TextView) headerView.findViewById(R.id.profile_name);
+
+        if (bmobUser != null) {
 //            ivAvatar.setImageBitmap();
+            tvUsername.setText(bmobUser.getUsername());
+        } else {
+            tvUsername.setText(getResources().getString(R.string.default_name));
         }
         ivAvatar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent toSignIntent = new Intent();
-                if (isSigned) {
-
+                Intent avatarIntent = new Intent();
+                if (bmobUser != null) {
+                    avatarIntent.putExtra("user", bmobUser);
+                    avatarIntent.setClass(MainActivity.this, PersonActivity.class);
                 } else {
-                    toSignIntent.setClass(MainActivity.this, LoginActivity.class);
+                    avatarIntent.setClass(MainActivity.this, LoginActivity.class);
                 }
-                startActivity(toSignIntent);
+                startActivity(avatarIntent);
             }
         });
     }
@@ -264,10 +283,19 @@ public class MainActivity extends NetLocationActivity
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
 
+        switch (id) {
+            case R.id.action_settings:
+
+                break;
+            case R.id.action_about:
+
+                break;
+            case R.id.action_out:
+                bmobUser.logOut(this);
+                setAvatar();
+                break;
+        }
         return super.onOptionsItemSelected(item);
     }
 

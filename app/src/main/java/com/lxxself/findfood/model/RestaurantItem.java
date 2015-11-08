@@ -1,22 +1,30 @@
 package com.lxxself.findfood.model;
 
+import java.util.List;
+
+import cn.bmob.v3.BmobObject;
+
 /**
- * Created by Administrator on 2015/10/20.
+ * Created by lxxself on 2015/10/20.
  */
-public class RestaurantItem {
+public class RestaurantItem extends BmobObject{
     private String name;
     private float price;
     private float ratingNum;
-    private float distance;
     private String picPath;
+    private String address;
+    private float latitude;
+    private float longitude;
+    private String tags;
 
-    public float getDistance() {
-        return distance;
+    public String getTags() {
+        return tags;
     }
 
-    public void setDistance(float distance) {
-        this.distance = distance;
+    public void setTags(String tags) {
+        this.tags = tags;
     }
+
 
     public String getName() {
         return name;

@@ -48,11 +48,9 @@ public class ListOrderFragment extends Fragment {
         recyclerView.setItemAnimator(new DefaultItemAnimator());
 //        recyclerView.addOnItemTouchListener();
 
-        List<RestaurantItem> list = new ArrayList<RestaurantItem>();
-        list.addAll(VersionModel.getRsList());
-        adapter =new RestaurantRecyclerAdapter(getContext(),list);
-
-        recyclerView.setAdapter(adapter);
+//        adapter =new RestaurantRecyclerAdapter();
+//
+//        recyclerView.setAdapter(adapter);
 
         return view;
     }

@@ -36,13 +36,13 @@ public class ShouyeFragment extends Fragment {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         switch (type) {
             case 0:
-                ft.replace(R.id.frame_shouye, new ListRestFragment(getResources().getColor(R.color.accent_material_light)),key).commit();
+                ft.replace(R.id.frame_shouye, new ListRestFragment(getResources().getColor(R.color.bright_foreground_disabled_material_dark)),key).commit();
                 break;
             case 1:
 
                 break;
             case 2:
-                ft.replace(R.id.frame_shouye, new ListRestFragment(getResources().getColor(R.color.accent_material_light)),key).commit();
+                ft.replace(R.id.frame_shouye, new ListRestFragment(getResources().getColor(R.color.bright_foreground_disabled_material_dark)),key).commit();
                 Log.d("ShouyeFragment", key);
                 break;
         }
