@@ -10,8 +10,8 @@
     card_view:cardCornerRadius="4dp"
     card_view:cardElevation="@dimen/cardview_default_elevation"
     android:foreground="?android:attr/selectableItemBackground"
-    android:layout_marginLeft="8dp"
-    android:layout_marginRight="8dp"
+    android:layout_marginLeft="5dp"
+    android:layout_marginRight="5dp"
     android:layout_marginTop="5dp"
     android:layout_marginBottom="5dp">
 
@@ -23,13 +23,12 @@
             android:layout_margin="10dp"
             android:transitionName="@string/transition_item_main_img"
             android:background="@drawable/qingmu"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_width="150dp"
+            android:layout_height="100dp" />
         <LinearLayout
             android:layout_toRightOf="@id/iv_pic"
             android:layout_width="match_parent"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
+            android:paddingLeft="2dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
             android:gravity="center_vertical"
@@ -39,13 +38,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
                 <TextView
+                    android:maxEms="18"
+                    android:singleLine="true"
+                    android:ellipsize="marquee"
                     android:id="@+id/listitem_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="130dp"
                     android:layout_height="wrap_content"
                     android:text="青木餐厅"
                     android:textStyle="bold"
                     android:textColor="@color/primary_text_default_material_light"
-                    android:textSize="@dimen/abc_text_size_subhead_material" />
+                    android:textSize="15sp" />
                 <TextView
                     android:id="@+id/distance"
                     android:layout_alignParentRight="true"
