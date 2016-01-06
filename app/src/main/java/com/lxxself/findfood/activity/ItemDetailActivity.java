@@ -5,6 +5,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bmob.pay.tool.BmobPay;
 import com.lxxself.findfood.R;
 import com.lxxself.findfood.model.ShopItem;
 import com.squareup.picasso.Picasso;
@@ -43,6 +45,7 @@ public class ItemDetailActivity extends AppCompatActivity {
     private android.widget.TextView textView2;
     private android.widget.LinearLayout pjlayout;
     private android.support.design.widget.CoordinatorLayout CoordinatorLayout;
+    private FloatingActionButton addOrder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +83,7 @@ public class ItemDetailActivity extends AppCompatActivity {
                 .placeholder(R.drawable.loading)
                 .error(R.drawable.loading)
                 .into(shopMainImage);
+
     }
 
     private void initView() {
@@ -102,6 +106,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         this.collapsingtoolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
         this.toolbar = (Toolbar) findViewById(R.id.toolbar);
         this.shopMainImage = (ImageView) findViewById(R.id.shop_mian_image);
+        this.addOrder = (FloatingActionButton) findViewById(R.id.add_order);
     }
 
     public void openMap(View view) {
@@ -117,6 +122,14 @@ public class ItemDetailActivity extends AppCompatActivity {
         Intent callIntent = new Intent(Intent.ACTION_DIAL, uri);
         startActivity(callIntent);
     }
+
+    public void addOrder(View view) {
+        Intent addOrder = new Intent(this, AddOrderActivity.class);
+        addOrder.putExtra("name", shopItem.getName());
+        addOrder.putExtra("price", shopItem.getPrice());
+        startActivity(addOrder);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);

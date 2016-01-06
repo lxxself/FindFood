@@ -33,6 +33,7 @@ import com.lxxself.findfood.fragment.DingdanFragment;
 import com.lxxself.findfood.fragment.FaxianFragment;
 import com.lxxself.findfood.fragment.ShouyeFragment;
 import com.lxxself.findfood.model.RestaurantItem;
+import com.socks.library.KLog;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -120,6 +121,7 @@ public class MainActivity extends NetLocationActivity
 //                Log.e(TAG, "失败" + s.toString());
 //            }
 //        });
+
     }
     @Override
     protected void onResume() {
