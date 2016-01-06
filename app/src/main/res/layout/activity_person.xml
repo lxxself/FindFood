@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.lxxself.findfood.activity.PersonActivity">
+    <RelativeLayout
+        android:background="@color/primary_light"
+        android:layout_width="match_parent"
+        android:layout_height="200dp">
+        <de.hdodenhof.circleimageview.CircleImageView
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:layout_centerInParent="true"
+            android:id="@+id/profile_image"
+            android:paddingTop="@dimen/nav_header_vertical_spacing"
+            android:layout_width="96dp"
+            android:layout_height="96dp"
+            android:src="@drawable/default_avatar"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FF000000"/>
+        <TextView
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:layout_below="@id/profile_image"
+            android:id="@+id/profile_name"
+            android:textSize="20sp"
+            android:textColorLink="#2f85f5"
+            android:text="@string/default_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <RelativeLayout
+                android:id="@+id/email_layout"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:id="@+id/email_title"
+                    android:layout_centerVertical="true"
+                    android:text="邮箱"
+                    android:textSize="20sp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/email_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/email_title"
+                    android:text="lxxself@foxmail.com"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_chevron_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/mobile_layout"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:id="@+id/mobile_title"
+                    android:layout_centerVertical="true"
+                    android:text="手机号"
+                    android:textSize="20sp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:layout_marginLeft="10dp"
+                    android:id="@+id/mobile_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@id/mobile_title"
+                    android:text="15757124564"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_chevron_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/changeps_layout"
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+                <TextView
+                    android:id="@+id/changeps_title"
+                    android:layout_centerVertical="true"
+                    android:text="修改密码"
+                    android:textSize="20sp"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <ImageView
+                    android:layout_alignParentRight="true"
+                    android:layout_margin="10dp"
+                    android:src="@drawable/ic_chevron_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_margin="15dp"
+                android:background="@color/primary_light"
+                android:layout_width="match_parent"
+                android:layout_height="300dp">
+                <TextView
+                    android:text="放置个人标签"
+                    
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
+        </LinearLayout>
+
+    </ScrollView>
+</LinearLayout>
