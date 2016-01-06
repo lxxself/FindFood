@@ -34,7 +34,7 @@
         completions."
     </string>
     <string name="title_activity_register">Register</string>
-    
+
     <!--nav_header-->
     <string name="default_name"><u>未登录</u></string>
     <string name="default_mood"></string>

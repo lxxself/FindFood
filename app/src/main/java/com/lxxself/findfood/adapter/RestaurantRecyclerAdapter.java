@@ -31,7 +31,7 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRe
     List<ShopItem> versionModels;
     private static final String[] tempTag = {"下沙","美味","好吃","环境好"};
     Context context;
-    OnItemClickListener clickListener;
+//    OnItemClickListener clickListener;
 
 
     public RestaurantRecyclerAdapter(Context context) {
@@ -99,7 +99,7 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRe
     }
 
 
-    class VersionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class VersionViewHolder extends RecyclerView.ViewHolder{
         CardView cardItemLayout;
         TextView title;
         TextView distance;
@@ -118,21 +118,21 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRe
             ratingBar = ( io.techery.properratingbar.ProperRatingBar) itemView.findViewById(R.id.ratingbar);
             imageView = (ImageView) itemView.findViewById(R.id.iv_pic);
             tagView = (TagView) itemView.findViewById(R.id.sometagView);
-            itemView.setOnClickListener(this);
+//            itemView.setOnClickListener(this);
         }
 
-        @Override
-        public void onClick(View v) {
-            clickListener.onItemClick(v, getPosition());
-        }
+//        @Override
+//        public void onClick(View v) {
+//            clickListener.onItemClick(v, getPosition());
+//        }
     }
 
-    public interface OnItemClickListener {
-        public void onItemClick(View view, int position);
-    }
-
-    public void SetOnItemClickListener(final OnItemClickListener itemClickListener) {
-        this.clickListener = itemClickListener;
-    }
+//    public interface OnItemClickListener {
+//        public void onItemClick(View view, int position);
+//    }
+//
+//    public void SetOnItemClickListener(final OnItemClickListener itemClickListener) {
+//        this.clickListener = itemClickListener;
+//    }
 
 }
