@@ -10,26 +10,49 @@
         android:id="@+id/appbar"
         layout="@layout/include_toolbar" />
     <LinearLayout
-        android:layout_margin="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
-            android:text="订单详情"
+            android:text="商家："
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
         <TextView
+            android:id="@+id/tv_shop_name"
             android:text=""
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
+    <LinearLayout
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <TextView
+            style="@style/middle_gray_word"
+            android:text="支付："
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <EditText
+            android:id="@+id/et_pay_money"
+            android:inputType="numberDecimal"
+            style="@style/small_black_word"
+            android:hint="@string/pay_hint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
     <TextView
+        style="@style/big_black_word"
         android:layout_margin="20dp"
         android:textSize="20sp"
-        android:text="需支付"
+        android:text="支付金额共"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <TextView
-        android:id="@+id/pay_money"
+        android:id="@+id/tv_pay_money"
         android:layout_gravity="center"
         android:textColor="#ff0000"
         android:text="120元"
@@ -37,10 +60,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
     <Button
-        android:onClick="payIt"
-        android:layout_margin="20dp"
+        android:id="@+id/btn_confirm"
         android:text="确定支付"
-        android:background="@color/primary"
+        style="@style/normal_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </LinearLayout>

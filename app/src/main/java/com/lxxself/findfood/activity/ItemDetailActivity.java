@@ -15,53 +15,75 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.bmob.pay.tool.BmobPay;
 import com.lxxself.findfood.R;
+import com.lxxself.findfood.model.Comments;
 import com.lxxself.findfood.model.ShopItem;
-import com.squareup.picasso.Picasso;
+import com.lxxself.findfood.util.ToastUtil;
+import com.lxxself.findfood.widget.RatingBar;
 
-import io.techery.properratingbar.ProperRatingBar;
+import java.util.List;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.FindListener;
+
+import static com.lxxself.findfood.util.AppUtil.loadImage;
 
 public class ItemDetailActivity extends AppCompatActivity {
 
+    @Bind(R.id.shop_main_image)
+    ImageView shopMainImage;
+    @Bind(R.id.toolbar)
+    Toolbar toolbar;
+    @Bind(R.id.collapsing_toolbar)
+    CollapsingToolbarLayout collapsingToolbar;
+    @Bind(R.id.appbar)
+    AppBarLayout appbar;
+    @Bind(R.id.add_order)
+    FloatingActionButton addOrder;
+    @Bind(R.id.tv_address)
+    TextView tvAddress;
+    @Bind(R.id.tv_phone)
+    TextView tvPhone;
+    @Bind(R.id.tv_price)
+    TextView tvPrice;
+    @Bind(R.id.ratingbar)
+    RatingBar ratingbar;
+    @Bind(R.id.tv_pingjia)
+    TextView tvPingjia;
+    @Bind(R.id.iv_more_pj)
+    ImageView ivMorePj;
+    @Bind(R.id.CoordinatorLayout)
+    android.support.design.widget.CoordinatorLayout CoordinatorLayout;
+    @Bind(R.id.iv_avatar)
+    ImageView ivAvatar;
+    @Bind(R.id.tv_user_name)
+    TextView tvUserName;
+    @Bind(R.id.tv_content)
+    TextView tvContent;
+    @Bind(R.id.iv_comment1)
+    ImageView ivComment1;
+    @Bind(R.id.iv_comment2)
+    ImageView ivComment2;
+    @Bind(R.id.iv_comment3)
+    ImageView ivComment3;
+    @Bind(R.id.item_comment)
+    LinearLayout itemComment;
+    @Bind(R.id.comment_rating)
+    RatingBar ratingbarComment;
+
     private String phoneNum = "88209803";
     private ShopItem shopItem = new ShopItem();
-    private ImageView shopMainImage;
-    private Toolbar toolbar;
-    private CollapsingToolbarLayout collapsingtoolbar;
-    private android.support.design.widget.AppBarLayout appbar;
-    private ImageView ivlocal;
-    private android.widget.TextView tvaddress;
-    private ImageView ivcall;
-    private android.widget.TextView tvphone;
-    private ImageView ivexpense;
-    private android.widget.TextView tvprice;
-    private ImageView ivstarNum;
-    private io.techery.properratingbar.ProperRatingBar ratingbar;
-    private ImageView ivmorepj;
-    private android.widget.TextView tvpingjia;
-    private ImageView ivavatar;
-    private android.widget.TextView tvusername;
-    private android.widget.TextView textView2;
-    private android.widget.LinearLayout pjlayout;
-    private android.support.design.widget.CoordinatorLayout CoordinatorLayout;
-    private FloatingActionButton addOrder;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_item_detail);
+        ButterKnife.bind(this);
         initView();
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                onBackPressed();
-            }
-        });
 
         Intent getIntent = getIntent();
         if (getIntent != null) {
@@ -73,61 +95,74 @@ public class ItemDetailActivity extends AppCompatActivity {
     }
 
     private void setView() {
-        collapsingtoolbar.setTitle(shopItem.getName());
-        tvaddress.setText(shopItem.getAddress());
-        tvphone.setText(shopItem.getPhone());
-        tvprice.setText("￥" + shopItem.getPrice() + "/人");
-        Picasso.with(ItemDetailActivity.this).load(shopItem.getPicPath())
-                .fit()
-                .centerCrop()
-                .placeholder(R.drawable.loading)
-                .error(R.drawable.loading)
-                .into(shopMainImage);
+        collapsingToolbar.setTitle(shopItem.getName());
+        tvAddress.setText(shopItem.getAddress());
+        tvPhone.setText(shopItem.getPhone());
+        tvPrice.setText(getString(R.string.per_yuan, shopItem.getPrice()));
+        loadImage(ItemDetailActivity.this, shopItem.getPicPath(), shopMainImage);
+        setComment();
+    }
 
+
+    private void setComment() {
+        BmobQuery<Comments> query = new BmobQuery<>();
+        query.setLimit(1);
+        query.order("createdAt");
+        query.addWhereEqualTo("restaurant", shopItem);
+        query.include("user");
+        query.findObjects(ItemDetailActivity.this, new FindListener<Comments>() {
+            @Override
+            public void onSuccess(List<Comments> list) {
+                if (list.size() != 0) {
+                    Comments comment = list.get(0);
+                    loadImage(ItemDetailActivity.this, comment.getUser().getAvatar(), ivAvatar);
+                    ratingbarComment.setStar(comment.getRatingNum());
+                    tvUserName.setText(comment.getUser().getUsername());
+                    tvContent.setText(comment.getContent());
+                } else {
+                    itemComment.setVisibility(View.GONE);
+                }
+
+            }
+
+            @Override
+            public void onError(int i, String s) {
+                ToastUtil.show(ItemDetailActivity.this,s);
+            }
+        });
     }
 
     private void initView() {
-        this.CoordinatorLayout = (android.support.design.widget.CoordinatorLayout) findViewById(R.id.CoordinatorLayout);
-        this.pjlayout = (LinearLayout) findViewById(R.id.pj_layout);
-        this.textView2 = (TextView) findViewById(R.id.textView2);
-        this.tvusername = (TextView) findViewById(R.id.tv_user_name);
-        this.ivavatar = (ImageView) findViewById(R.id.iv_avatar);
-        this.tvpingjia = (TextView) findViewById(R.id.tv_pingjia);
-        this.ivmorepj = (ImageView) findViewById(R.id.iv_more_pj);
-        this.ratingbar = (ProperRatingBar) findViewById(R.id.ratingbar);
-        this.ivstarNum = (ImageView) findViewById(R.id.iv_starNum);
-        this.tvprice = (TextView) findViewById(R.id.tv_price);
-        this.ivexpense = (ImageView) findViewById(R.id.iv_expense);
-        this.tvphone = (TextView) findViewById(R.id.tv_phone);
-        this.ivcall = (ImageView) findViewById(R.id.iv_call);
-        this.tvaddress = (TextView) findViewById(R.id.tv_address);
-        this.ivlocal = (ImageView) findViewById(R.id.iv_local);
-        this.appbar = (AppBarLayout) findViewById(R.id.appbar);
-        this.collapsingtoolbar = (CollapsingToolbarLayout) findViewById(R.id.collapsing_toolbar);
-        this.toolbar = (Toolbar) findViewById(R.id.toolbar);
-        this.shopMainImage = (ImageView) findViewById(R.id.shop_mian_image);
-        this.addOrder = (FloatingActionButton) findViewById(R.id.add_order);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                onBackPressed();
+            }
+        });
+
     }
 
-    public void openMap(View view) {
+    private void openMap() {
         Intent mapIntent = new Intent(this, GDMapActivity.class);
         float[] point = {shopItem.getOriginal_latitude(), shopItem.getOriginal_longitude()};
         mapIntent.putExtra("point", point);
         startActivity(mapIntent);
     }
 
-    public void callPhone(View view) {
+    private void callPhone() {
         String uriString = "tel:" + phoneNum;
         Uri uri = Uri.parse(uriString);
         Intent callIntent = new Intent(Intent.ACTION_DIAL, uri);
         startActivity(callIntent);
     }
 
-    public void addOrder(View view) {
-        Intent addOrder = new Intent(this, AddOrderActivity.class);
-        addOrder.putExtra("name", shopItem.getName());
-        addOrder.putExtra("price", shopItem.getPrice());
-        startActivity(addOrder);
+    private void addOrder() {
+        Intent addOrderIntent = new Intent(this, AddOrderActivity.class);
+        addOrderIntent.putExtra("name", shopItem.getName());
+        addOrderIntent.putExtra("shopId", shopItem.getObjectId());
+        startActivity(addOrderIntent);
     }
 
     @Override
@@ -146,5 +181,20 @@ public class ItemDetailActivity extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @OnClick({R.id.add_order, R.id.tv_address, R.id.tv_phone})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.add_order:
+                addOrder();
+                break;
+            case R.id.tv_address:
+                openMap();
+                break;
+            case R.id.tv_phone:
+                callPhone();
+                break;
+        }
     }
 }

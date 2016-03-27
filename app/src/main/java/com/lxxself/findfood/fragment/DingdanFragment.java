@@ -57,8 +57,8 @@ public class DingdanFragment extends Fragment {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFrag(new ListOrderFragment(getResources().getColor(R.color.accent_material_light)), "未完成订单");
-        adapter.addFrag(new ListOrderFragment(getResources().getColor(R.color.ripple_material_light)), "已完成");
+        adapter.addFrag(new ListOrderFragment(getContext(),false), "未完成订单");
+        adapter.addFrag(new ListOrderFragment(getContext(),true), "已完成");
         viewPager.setAdapter(adapter);
     }
 }

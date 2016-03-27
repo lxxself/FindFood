@@ -1,7 +1,6 @@
 package com.lxxself.findfood.activity;
 
 import android.content.Intent;
-import android.location.Location;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -11,13 +10,12 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.amap.api.location.AMapLocation;
+import com.amap.api.location.AMapLocationClient;
+import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
-import com.amap.api.location.LocationManagerProxy;
-import com.amap.api.location.LocationProviderProxy;
 import com.amap.api.maps.AMap;
 import com.amap.api.maps.LocationSource;
 import com.amap.api.maps.MapView;
-import com.amap.api.maps.MapsInitializer;
 import com.amap.api.maps.overlay.BusRouteOverlay;
 import com.amap.api.maps.overlay.DrivingRouteOverlay;
 import com.amap.api.maps.overlay.WalkRouteOverlay;
@@ -30,7 +28,6 @@ import com.amap.api.services.route.RouteSearch;
 import com.amap.api.services.route.WalkPath;
 import com.amap.api.services.route.WalkRouteResult;
 import com.lxxself.findfood.R;
-import com.lxxself.findfood.util.OffLineMapUtils;
 import com.lxxself.findfood.util.ToastUtil;
 
 public class GDMapActivity extends AppCompatActivity implements
@@ -51,10 +48,10 @@ public class GDMapActivity extends AppCompatActivity implements
     private LatLonPoint endPoint;
     private LatLonPoint currentPoint;
     private RouteSearch.FromAndTo fromAndTo;
-    private LocationManagerProxy mLocationManagerProxy;
+    private AMapLocationClient mlocationClient;
     private LocationSource.OnLocationChangedListener mListener;
     private AMapLocation currentMapLocation;
-    ;
+    private AMapLocationClientOption mLocationOption;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,14 +67,11 @@ public class GDMapActivity extends AppCompatActivity implements
 //        MapsInitializer.sdcardDir = OffLineMapUtils.getSdCacheDir(this);
         mapView = (MapView) findViewById(R.id.map);
         mapView.onCreate(savedInstanceState);// 必须要写
-
         init();
 
     }
 
     private void init() {
-
-
         if (aMap == null) {
             aMap = mapView.getMap();
             registerListener();
@@ -268,7 +262,7 @@ public class GDMapActivity extends AppCompatActivity implements
     @Override
     public void onLocationChanged(AMapLocation aMapLocation) {
         if (mListener != null && aMapLocation != null) {
-            if (aMapLocation.getAMapException().getErrorCode() == 0) {
+            if (aMapLocation.getErrorCode() == 0) {
                 //显示小蓝点
                 mListener.onLocationChanged(aMapLocation);
                 currentMapLocation = aMapLocation;
@@ -276,63 +270,55 @@ public class GDMapActivity extends AppCompatActivity implements
                 double geoLat = aMapLocation.getLatitude();
                 double geoLng = aMapLocation.getLongitude();
                 currentPoint = new LatLonPoint(geoLat, geoLng);
-                Log.d("currentPoint", currentPoint.getLatitude() +","+ currentPoint.getLongitude() + "");
+                Log.d("currentPoint", currentPoint.getLatitude() + "," + currentPoint.getLongitude() + "");
 
 //                startPoint = new LatLonPoint(30.3134798374,120.3529457707);
                 startPoint = currentPoint;
 //                endPoint = new LatLonPoint(30.2910537551, 120.2129113763);
                 fromAndTo = new RouteSearch.FromAndTo(startPoint, endPoint);
-                StartWalk(null);
+//                StartWalk(null);
+            }else {
+                String errText = "定位失败," + aMapLocation.getErrorCode() + ": " + aMapLocation.getErrorInfo();
+                Log.e("AmapErr", errText);
             }
-
         }
 
     }
 
-    @Override
-    public void onLocationChanged(Location location) {
 
-    }
-
-    @Override
-    public void onStatusChanged(String provider, int status, Bundle extras) {
-
-    }
-
-    @Override
-    public void onProviderEnabled(String provider) {
-
-    }
-
-    @Override
-    public void onProviderDisabled(String provider) {
-
-    }
-
-
-
+    /**
+     * 激活定位
+     */
     @Override
     public void activate(OnLocationChangedListener onLocationChangedListener) {
         mListener = onLocationChangedListener;
-        if (mLocationManagerProxy == null) {
-            mLocationManagerProxy = LocationManagerProxy.getInstance(this);
-            //此方法为每隔固定时间会发起一次定位请求，为了减少电量消耗或网络流量消耗，
-            //注意设置合适的定位时间的间隔，并且在合适时间调用removeUpdates()方法来取消定位请求
-            //在定位结束后，在合适的生命周期调用destroy()方法
-            //其中如果间隔时间为-1，则定位只定一次
-            mLocationManagerProxy.requestLocationData(
-                    LocationProviderProxy.AMapNetwork, 60 * 1000, 10, this);
-
+        if (mlocationClient == null) {
+            mlocationClient = new AMapLocationClient(this);
+            mLocationOption = new AMapLocationClientOption();
+            //设置定位监听
+            mlocationClient.setLocationListener(this);
+            //设置为高精度定位模式
+            mLocationOption.setLocationMode(AMapLocationClientOption.AMapLocationMode.Hight_Accuracy);
+            //设置定位参数
+            mlocationClient.setLocationOption(mLocationOption);
+            // 此方法为每隔固定时间会发起一次定位请求，为了减少电量消耗或网络流量消耗，
+            // 注意设置合适的定位时间的间隔（最小间隔支持为2000ms），并且在合适时间调用stopLocation()方法来取消定位请求
+            // 在定位结束后，在合适的生命周期调用onDestroy()方法
+            // 在单次定位情况下，定位无论成功与否，都无需调用stopLocation()方法移除请求，定位sdk内部会移除
+            mlocationClient.startLocation();
         }
     }
 
+    /**
+     * 停止定位
+     */
     @Override
     public void deactivate() {
         mListener = null;
-        if (mLocationManagerProxy != null) {
-            mLocationManagerProxy.removeUpdates(this);
-            mLocationManagerProxy.destroy();
+        if (mlocationClient != null) {
+            mlocationClient.stopLocation();
+            mlocationClient.onDestroy();
         }
-        mLocationManagerProxy = null;
+        mlocationClient = null;
     }
 }

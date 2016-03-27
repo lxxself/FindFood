@@ -59,9 +59,9 @@ public class FaxianFragment extends Fragment {
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFrag(new ListRestFragment(getResources().getColor(R.color.accent_material_light)), "全部");
-        adapter.addFrag(new ListRestFragment(getResources().getColor(R.color.ripple_material_light)), "小吃快餐");
-        adapter.addFrag(new ListRestFragment(getResources().getColor(R.color.button_material_dark)), "咖啡厅");
+        adapter.addFrag(new ListShopFragment(getContext(),getResources().getColor(R.color.accent_material_light)), "全部");
+        adapter.addFrag(new ListShopFragment(getContext(),getResources().getColor(R.color.ripple_material_light)), "小吃快餐");
+        adapter.addFrag(new ListShopFragment(getContext(),getResources().getColor(R.color.button_material_dark)), "咖啡厅");
         viewPager.setAdapter(adapter);
     }
 }
