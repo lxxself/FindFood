@@ -3,21 +3,19 @@ package com.lxxself.findfood.activity;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.Fragment;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
-import android.support.v4.view.MenuItemCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -32,39 +30,34 @@ import com.lxxself.findfood.R;
 import com.lxxself.findfood.fragment.DingdanFragment;
 import com.lxxself.findfood.fragment.FaxianFragment;
 import com.lxxself.findfood.fragment.ShouyeFragment;
-import com.lxxself.findfood.model.RestaurantItem;
-import com.socks.library.KLog;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
-import java.util.TimeZone;
+import com.lxxself.findfood.util.ToastUtil;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.listener.SaveListener;
 import me.kaede.tagview.OnTagClickListener;
 import me.kaede.tagview.Tag;
 import me.kaede.tagview.TagView;
 
+import static com.lxxself.findfood.util.AppUtil.getCurrentTime;
+import static com.lxxself.findfood.util.AppUtil.getDateSx;
 
 
 public class MainActivity extends NetLocationActivity
         implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener, SearchView.OnCloseListener{
 
+    public static final int SHOUYE = 0;
+    public static final int FAXIAN = 1;
+    public static final int DINGDAN = 2;
+    public static final int SHEZHI = 3;
     private Toolbar toolbar;
-    private final List<Fragment> mFragmentList = new ArrayList<>();
-    private final List<String> mFragmentTitleList = new ArrayList<>();
-    public String TAG = "MainActivity";
     private Context mContext;
     private FloatingActionButton fab;
     private SearchView searchView;
     private MenuItem mMenuItem;
-    private SharedPreferences sp;
     private BmobUser bmobUser;
     private View headerView;
+    private int currentFlag = SHOUYE;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,35 +94,36 @@ public class MainActivity extends NetLocationActivity
         headerView = navigationView.inflateHeaderView(R.layout.nav_header_main);
         navigationView.setNavigationItemSelectedListener(this);
 
-        switchToShouye();
-//        final RestaurantItem r = new RestaurantItem();
-//        r.setTags(new String[]{"浙江", "好吃", "美味"});
-//        r.setPicPath("http://ww4.sinaimg.cn/large/7a8aed7bjw1exr0p4r0h3j20oy15445o.jpg");
-//        r.setRatingNum(5);
-//        r.setDistance(3.5f);
-//        r.setName("青木餐厅");
-//        r.setPrice(78.5f);
-//        r.save(this, new SaveListener() {
-//            @Override
-//            public void onSuccess() {
-//                Log.d(TAG, "成功" + r.getObjectId());
-//
-//            }
-//
-//            @Override
-//            public void onFailure(int i, String s) {
-//                Log.e(TAG, "失败" + s.toString());
-//            }
-//        });
-
     }
     @Override
     protected void onResume() {
         super.onResume();
         setAvatar();
+        switchTo(currentFlag);
     }
 
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        currentFlag = intent.getIntExtra("flag", currentFlag);
+    }
 
+    private void switchTo(int currentFlag) {
+        switch (currentFlag) {
+            case SHOUYE:
+                switchToShouye();
+                break;
+            case FAXIAN:
+                switchToFaxian();
+                break;
+            case DINGDAN:
+                switchToDingdan();
+                break;
+            case SHEZHI:
+                switchToShezhi();
+                break;
+        }
+    }
 
 
     private void setAvatar() {
@@ -162,7 +156,6 @@ public class MainActivity extends NetLocationActivity
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private void showSituation(View v) {
-        Log.d(TAG, "showCutPopupWindows ");
         View contentView = LayoutInflater.from(mContext).inflate(R.layout.situation_pop_window, null);
         final PopupWindow popupWindow = new PopupWindow(contentView,
               ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
@@ -172,8 +165,9 @@ public class MainActivity extends NetLocationActivity
         location.setText(mLocationLatlngText);
         currentTime.setText(getCurrentTime());
         weather.setText(mTemperature+"  "+mWeather);
+
         final TagView wuliTagGroup = (TagView) contentView.findViewById(R.id.wuli_tags);
-        wuliTagGroup.addTags(new String[]{"十六街区商业街", "下午", "晴朗"});
+        wuliTagGroup.addTags(new String[]{mLocationPOIText, getDateSx(), mWeather});
         wuliTagGroup.setOnTagClickListener(new OnTagClickListener() {
 
             @Override
@@ -219,40 +213,7 @@ public class MainActivity extends NetLocationActivity
         popupWindow.showAtLocation(fab,Gravity.BOTTOM,0,-fab.getHeight());
     }
 
-    private String getCurrentTime() {
-        Calendar c = Calendar.getInstance();
-        c.setTimeZone(TimeZone.getTimeZone("GMT+8:00"));
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date date = new Date(System.currentTimeMillis());
-        String currentTime = format.format(date)+" ";
-        Log.d(TAG, currentTime);
-        String dayOfWeek = "";
-        switch (c.get(Calendar.DAY_OF_WEEK)) {
-            case 1:
-                dayOfWeek = "星期天";
-                break;
-            case 2:
-                dayOfWeek = "星期一";
-                break;
-            case 3:
-                dayOfWeek = "星期二";
-                break;
-            case 4:
-                dayOfWeek = "星期三";
-                break;
-            case 5:
-                dayOfWeek = "星期四";
-                break;
-            case 6:
-                dayOfWeek = "星期五";
-                break;
-            case 7:
-                dayOfWeek = "星期六";
-                break;
-        }
-        currentTime = currentTime +"  "+dayOfWeek;
-        return currentTime;
-    }
+
 
 
     @Override
@@ -269,11 +230,6 @@ public class MainActivity extends NetLocationActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
-        mMenuItem = menu.findItem(R.id.ab_search);
-        searchView = (SearchView) MenuItemCompat.getActionView(mMenuItem);
-        searchView.setQueryHint("输入餐厅名、地点");
-        searchView.setOnQueryTextListener(this);
-        searchView.setOnCloseListener(this);
         return true;
     }
 
@@ -287,6 +243,10 @@ public class MainActivity extends NetLocationActivity
         //noinspection SimplifiableIfStatement
 
         switch (id) {
+            case R.id.action_search:
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                startActivity(intent);
+                break;
             case R.id.action_settings:
 
                 break;
@@ -302,7 +262,6 @@ public class MainActivity extends NetLocationActivity
     }
 
 
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -310,19 +269,19 @@ public class MainActivity extends NetLocationActivity
         int id = item.getItemId();
 
         if (id == R.id.shouye) {
-           switchToShouye();
+            currentFlag = SHOUYE;
         } else if (id == R.id.faxian) {
-            switchToFaxian();
+            currentFlag = FAXIAN;
         } else if (id == R.id.dingdan) {
-            switchToDingdan();
+            currentFlag = DINGDAN;
         } else if (id == R.id.shezhi) {
-            switchToShezhi();
+            currentFlag = SHEZHI;
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 
         }
-
+        switchTo(currentFlag);
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -364,4 +323,20 @@ public class MainActivity extends NetLocationActivity
         return false;
     }
 
+    private long exitTime = 0;
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK
+                && event.getAction() == KeyEvent.ACTION_DOWN) {
+            if ((System.currentTimeMillis() - exitTime) > 3000) {
+                ToastUtil.showShort(this,getString(R.string.exit_once_more));
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+                System.exit(0);
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

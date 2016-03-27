@@ -38,4 +38,30 @@
     <!--nav_header-->
     <string name="default_name"><u>未登录</u></string>
     <string name="default_mood"></string>
+    <string name="button_allow">允许</string>
+    <string name="button_deny">拒绝</string>
+    <string name="permission_camera_never_askagain">不再提示相机权限</string>
+    <string name="permission_camera_denied">拒绝相机权限</string>
+    <string name="permission_camera_rationale">相机权限提示</string>
+    <string name="permission_contacts_rationale">通讯录权限提示</string>
+    <string name="loading">正在加载</string>
+    <string name="exit_once_more">再按一次退出程序</string>
+    <string name="action_search">action_search</string>
+    <string name="search_hint">请输入搜索关键词</string>
+    <string name="submit_order">提交预约</string>
+    <string name="order_time">预约时间</string>
+    <string name="dialog_hint">提示</string>
+    <string name="to_login">清先登录！</string>
+    <string name="OK">确定</string>
+    <string name="order_id">订单号：%s</string>
+    <string name="order_amount">消费：%s</string>
+    <string name="order_actual_amount">实付：%s</string>
+    <string name="order_completed">已完成</string>
+    <string name="order_to_pay">待支付</string>
+    <string name="order_to_comment">待评价</string>
+    <string name="pay_hint">请询问服务员输入消费金额</string>
+    <string name="yuan">%s 元</string>
+    <string name="per_yuan">￥%s/人</string>
+    <string name="comment_hint">在这里写下评论...</string>
+    <string name="action_save">提交</string>
 </resources>

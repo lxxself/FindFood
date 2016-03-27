@@ -28,6 +28,12 @@
 
     </string-array>
 
+    <string-array name="headers">
+        <item>附近</item>
+        <item>全部美食</item>
+        <item>离我最近</item>
+        <item>匹配情境</item>
+    </string-array>
     <string-array name="place">
         <item>附近</item>
         <item>江干区</item>

@@ -13,7 +13,6 @@ import android.content.CursorLoader;
 import android.content.Loader;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.AsyncTask;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -36,12 +35,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.lxxself.findfood.R;
-import com.lxxself.findfood.model.FFUser;
-import com.lxxself.findfood.model.RestaurantItem;
 
 import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.exception.BmobException;
-import cn.bmob.v3.listener.LogInListener;
 import cn.bmob.v3.listener.SaveListener;
 
 import static android.Manifest.permission.READ_CONTACTS;

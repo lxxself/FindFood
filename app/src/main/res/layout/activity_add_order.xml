@@ -18,7 +18,7 @@
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <RelativeLayout
+            <LinearLayout
                 android:gravity="center_vertical"
                 android:layout_marginTop="20dp"
                 android:background="#ffffff"
@@ -26,79 +26,43 @@
                 android:layout_height="50dp">
                 <TextView
                     android:layout_marginLeft="15dp"
-                    android:layout_alignParentLeft="true"
                     android:id="@+id/item_name"
                     style="?android:textAppearanceLarge"
                     android:text="新石器烤肉"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
-                <TextView
-                    android:id="@+id/item_price"
-                    android:layout_alignParentRight="true"
-                    android:text="￥26"
-                    android:paddingRight="15dp"
-                    style="?android:textAppearanceLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </RelativeLayout>
+            </LinearLayout>
             <View
                 android:layout_marginTop="5dp"
                 android:background="#d3cfdc"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"/>
-            <RelativeLayout
+            <LinearLayout
+                android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:background="#ffffff"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
                 <TextView
-                    android:layout_centerInParent="true"
                     android:layout_marginLeft="15dp"
-                    android:layout_alignParentLeft="true"
+                    android:layout_weight="1"
                     style="?android:textAppearanceLarge"
-                    android:text="数量:"
-                    android:layout_width="match_parent"
+                    android:text="@string/order_time"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content" />
-                <LinearLayout
-                    android:id="@+id/mount_linear"
-                    android:layout_alignParentRight="true"
+                <TextView
+                    android:id="@+id/tv_ordertime"
+                    android:text="2016-03-08 12:00"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-                    <Button
-                        android:textColor="@color/primary"
-                        android:textSize="20dp"
-                        android:textStyle="bold"
-                        android:text="-"
-                        android:onClick="minusNum"
-                        android:background="@color/primary_light"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp" />
-                    <EditText
-                        android:id="@+id/amount"
-                        android:gravity="center"
-                        android:textAlignment="gravity"
-                        android:text="1"
-                        android:numeric="integer"
-                        android:shadowColor="@color/primary"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp" />
-                    <Button
-                        android:textColor="@color/white"
-                        android:textSize="20dp"
-                        android:textStyle="bold"
-                        android:text="+"
-                        android:onClick="addNum"
-                        android:background="@color/primary"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp" />
-                </LinearLayout>
-            </RelativeLayout>
+                    android:layout_height="wrap_content" />
+            </LinearLayout>
             <View
                 android:layout_marginTop="5dp"
                 android:background="#d3cfdc"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"/>
-            <RelativeLayout
+            <LinearLayout
+                android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:background="#ffffff"
                 android:layout_width="match_parent"
@@ -108,86 +72,56 @@
                     android:layout_alignParentLeft="true"
                     style="?android:textAppearanceLarge"
                     android:text="人数"
-                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content" />
-                <TextView
-                    android:layout_alignParentRight="true"
+                <EditText
                     android:text="4"
-                    android:paddingRight="15dp"
+                    android:id="@+id/et_people_num"
                     style="?android:textAppearanceLarge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-            </RelativeLayout>
+            </LinearLayout>
             <View
                 android:layout_marginTop="5dp"
                 android:background="#d3cfdc"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"/>
-            <RelativeLayout
-                android:gravity="center_vertical"
-                android:background="#ffffff"
-                android:layout_width="match_parent"
-                android:layout_height="50dp">
-                <TextView
-                    android:layout_marginLeft="15dp"
-                    android:layout_alignParentLeft="true"
-                    style="?android:textAppearanceLarge"
-                    android:text="总计"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-                <TextView
-                    android:id="@+id/totalCount"
-                    android:textColor="#f90b0b"
-                    android:layout_alignParentRight="true"
-                    android:text="26 元"
-                    android:paddingRight="15dp"
-                    style="?android:textAppearanceLarge"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </RelativeLayout>
-            <View
-                android:layout_marginTop="5dp"
-                android:background="#d3cfdc"
-                android:layout_width="match_parent"
-                android:layout_height="1dp"/>
+
+
             <TextView
                 android:layout_marginTop="10dp"
                 android:layout_marginBottom="10dp"
                 android:text="您绑定的手机号"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <RelativeLayout
+            <LinearLayout
                 android:gravity="center_vertical"
                 android:background="#ffffff"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
                 <TextView
+                    android:id="@+id/tv_phone"
+                    android:layout_weight="1"
                     android:layout_marginLeft="15dp"
-                    android:layout_alignParentLeft="true"
                     style="?android:textAppearanceLarge"
                     android:text="13291833759"
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content" />
                 <TextView
-                    android:layout_alignParentRight="true"
                     android:text="重新绑定"
-                    android:paddingRight="15dp"
+                    android:id="@+id/tv_bind_phone"
                     style="?android:textAppearanceLarge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-            </RelativeLayout>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
     <Button
-        android:onClick="sumbitOrder"
-        android:text="提交订单"
-        android:layout_margin="10dp"
-        android:layout_alignParentBottom="true"
-        style="?android:textAppearanceLarge"
-        android:textColor="#ffffff"
-        android:background="@color/primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:textStyle="bold" />
+        android:onClick="sumbitOrder"
+        android:text="@string/submit_order"
+        android:layout_alignParentBottom="true"
+        style="@style/normal_button" />
 </RelativeLayout>
