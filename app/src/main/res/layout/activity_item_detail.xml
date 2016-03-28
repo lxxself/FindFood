@@ -57,7 +57,6 @@
         app:layout_anchor="@+id/appbar"
         app:layout_anchorGravity="bottom|right|end" />
     <android.support.v4.widget.NestedScrollView
-        android:padding="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
@@ -67,88 +66,110 @@
                 android:orientation="vertical"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
                 <LinearLayout
-                    android:gravity="center_vertical"
-                    android:layout_marginTop="30dp"
+                    android:paddingLeft="@dimen/big_edge_distance"
+                    android:paddingRight="@dimen/big_edge_distance"
+                    android:orientation="vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp">
-                    <ImageView
-                        android:layout_margin="10dp"
-                        android:src="@drawable/ic_pin_drop"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:maxEms="18"
-                        android:singleLine="true"
-                        android:ellipsize="marquee"
-                        android:id="@+id/tv_address"
-                        android:textSize="20sp"
-                        android:text="学林街920号"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_marginTop="@dimen/big_edge_distance"
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/small_height">
+                        <ImageView
+                            android:layout_marginRight="@dimen/middle_edge_distance"
+                            android:src="@drawable/ic_pin_drop"
+                            android:layout_width="@dimen/icon_size"
+                            android:layout_height="@dimen/icon_size" />
+                        <TextView
+                            style="@style/middle_gray_word"
+                            android:maxEms="18"
+                            android:singleLine="true"
+                            android:ellipsize="marquee"
+                            android:id="@+id/tv_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="学林街920号" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/small_height">
+                        <ImageView
+                            android:layout_marginRight="@dimen/middle_edge_distance"
+                            android:src="@drawable/ic_call"
+                            android:layout_width="@dimen/icon_size"
+                            android:layout_height="@dimen/icon_size"  />
+                        <TextView
+                            style="@style/middle_gray_word"
+                            android:id="@+id/tv_phone"
+                            android:text="88209803"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/small_height">
+                        <ImageView
+                            android:layout_marginRight="@dimen/middle_edge_distance"
+                            android:src="@drawable/ic_shopping_cart"
+                            android:layout_width="@dimen/icon_size"
+                            android:layout_height="@dimen/icon_size"  />
+                        <TextView
+                            style="@style/middle_gray_word"
+                            android:id="@+id/tv_price"
+                            android:text="￥57/人"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
+                    <LinearLayout
+                        android:gravity="center_vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/small_height">
+                        <ImageView
+                            android:layout_marginRight="@dimen/middle_edge_distance"
+                            android:src="@drawable/ic_thumb_up"
+                            android:layout_width="@dimen/icon_size"
+                            android:layout_height="@dimen/icon_size" />
+                        <com.lxxself.findfood.widget.RatingBar
+                           android:layout_gravity="center"
+                            android:id="@+id/ratingbar"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            lxxself:starCount="5"
+                            lxxself:clickable="false"
+                            lxxself:starEmpty="@drawable/ic_star_normal"
+                            lxxself:starFill="@drawable/ic_star_selected"
+                            lxxself:starImageSize="20dp" />
+                    </LinearLayout>
                 </LinearLayout>
                 <LinearLayout
-                    android:gravity="center_vertical"
+                    android:layout_marginTop="@dimen/small_edge_distance"
+                    android:padding="@dimen/middle_edge_distance"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp">
-                    <ImageView
-                        android:layout_margin="10dp"
-                        android:src="@drawable/ic_call"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tv_phone"
-                        android:textSize="20sp"
-                        android:text="88209803"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-                <LinearLayout
-                    android:gravity="center_vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp">
-                    <ImageView
-                        android:layout_margin="10dp"
-                        android:src="@drawable/ic_shopping_cart"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <TextView
-                        android:id="@+id/tv_price"
-                        android:textSize="20sp"
-                        android:text="￥57/人"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                </LinearLayout>
-                <LinearLayout
-                    android:gravity="center_vertical"
-                    android:layout_width="match_parent"
-                    android:layout_height="50dp">
-                    <ImageView
-                        android:layout_margin="10dp"
-                        android:src="@drawable/ic_thumb_up"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-                    <com.lxxself.findfood.widget.RatingBar
-                       android:layout_gravity="center"
-                        android:id="@+id/ratingbar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        lxxself:starCount="5"
-                        lxxself:clickable="false"
-                        lxxself:starEmpty="@drawable/ic_star_normal"
-                        lxxself:starFill="@drawable/ic_star_selected"
-                        lxxself:starImageSize="20dp" />
+                    android:layout_height="wrap_content">
+                    <me.gujun.android.taggroup.TagGroup
+                        android:id="@+id/tag_group"
+                        style="@style/TagGroup" />
                 </LinearLayout>
                 <View
                     android:background="@color/separator"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"/>
-                <include
+                <FrameLayout
+                    android:id="@+id/layout_comment"
+                    android:visibility="gone"
                     android:layout_marginTop="10dp"
-                    layout="@layout/layout_comment"
-                    android:layout_height="match_parent"
-                    android:layout_width="wrap_content" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <include
+                        layout="@layout/layout_comment"
+                        android:layout_height="match_parent"
+                        android:layout_width="wrap_content" />
+                </FrameLayout>
                 <LinearLayout
-                    android:padding="10dp"
+                    android:padding="@dimen/middle_edge_distance"
                     android:gravity="center_vertical"
                     android:layout_marginTop="10dp"
                     android:layout_width="match_parent"

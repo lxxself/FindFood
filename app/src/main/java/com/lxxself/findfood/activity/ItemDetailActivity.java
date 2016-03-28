@@ -20,7 +20,9 @@ import com.lxxself.findfood.model.Comments;
 import com.lxxself.findfood.model.ShopItem;
 import com.lxxself.findfood.util.ToastUtil;
 import com.lxxself.findfood.widget.RatingBar;
+import com.socks.library.KLog;
 
+import java.util.Arrays;
 import java.util.List;
 
 import butterknife.Bind;
@@ -28,6 +30,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
+import me.gujun.android.taggroup.TagGroup;
 
 import static com.lxxself.findfood.util.AppUtil.loadImage;
 
@@ -43,6 +46,8 @@ public class ItemDetailActivity extends AppCompatActivity {
     AppBarLayout appbar;
     @Bind(R.id.add_order)
     FloatingActionButton addOrder;
+    @Bind(R.id.tag_group)
+    TagGroup tagGroup;
     @Bind(R.id.tv_address)
     TextView tvAddress;
     @Bind(R.id.tv_phone)
@@ -61,6 +66,8 @@ public class ItemDetailActivity extends AppCompatActivity {
     ImageView ivAvatar;
     @Bind(R.id.tv_user_name)
     TextView tvUserName;
+    @Bind(R.id.layout_comment)
+    View commentLayout;
     @Bind(R.id.tv_content)
     TextView tvContent;
     @Bind(R.id.iv_comment1)
@@ -96,6 +103,10 @@ public class ItemDetailActivity extends AppCompatActivity {
 
     private void setView() {
         collapsingToolbar.setTitle(shopItem.getName());
+
+        String[] tags = shopItem.getTags().split(",");
+        tagGroup.setTags(Arrays.asList(tags));
+
         tvAddress.setText(shopItem.getAddress());
         tvPhone.setText(shopItem.getPhone());
         tvPrice.setText(getString(R.string.per_yuan, shopItem.getPrice()));
@@ -108,19 +119,23 @@ public class ItemDetailActivity extends AppCompatActivity {
         BmobQuery<Comments> query = new BmobQuery<>();
         query.setLimit(1);
         query.order("createdAt");
-        query.addWhereEqualTo("restaurant", shopItem);
+        ShopItem item = new ShopItem();
+        item.setObjectId(shopItem.getObjectId());
+        query.addWhereEqualTo("restaurant", item);
         query.include("user");
         query.findObjects(ItemDetailActivity.this, new FindListener<Comments>() {
             @Override
             public void onSuccess(List<Comments> list) {
+                KLog.d(list.toString());
                 if (list.size() != 0) {
+                    commentLayout.setVisibility(View.VISIBLE);
                     Comments comment = list.get(0);
                     loadImage(ItemDetailActivity.this, comment.getUser().getAvatar(), ivAvatar);
                     ratingbarComment.setStar(comment.getRatingNum());
                     tvUserName.setText(comment.getUser().getUsername());
                     tvContent.setText(comment.getContent());
                 } else {
-                    itemComment.setVisibility(View.GONE);
+                    commentLayout.setVisibility(View.GONE);
                 }
 
             }

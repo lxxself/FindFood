@@ -56,21 +56,17 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRe
 
     }
 
+
     @Override
-    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, final int i) {
+    public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.layout_list_shop, viewGroup, false);
         ViewHolder viewHolder = new ViewHolder(view);
-        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                clickListener.itemClick(v, i);
-            }
-        });
         return viewHolder;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder viewHolder, int i) {
+        viewHolder.itemView.setTag(i);
         viewHolder.listitemName.setText(versionModels.get(i).getName());
         viewHolder.listitemPrice.setText("￥" + versionModels.get(i).getPrice() + "/人");
         viewHolder.ratingbar.setStar((int) versionModels.get(i).getRatingNum());
@@ -92,7 +88,12 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRe
             viewHolder.sometagView.setTags(tags);
         }
 
-
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                clickListener.itemClick(v, (Integer) v.getTag());
+            }
+        });
     }
 
     @Override
