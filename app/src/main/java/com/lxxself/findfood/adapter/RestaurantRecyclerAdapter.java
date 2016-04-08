@@ -25,7 +25,7 @@ import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
-import me.kaede.tagview.TagView;
+import me.gujun.android.taggroup.TagGroup;
 
 /**
  * Created by Administrator on 2015/10/15.
@@ -80,12 +80,12 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRe
                     .into(viewHolder.ivPic);
         }
 
-        KLog.d("onBindViewHolder", viewHolder.sometagView.getTags().size() + "");
+        KLog.d("onBindViewHolder", viewHolder.tagGroup.getTags().length + "");
         String[] tags = versionModels.get(i).getTags().split(",");
         if (tags.length > 6) {
-            viewHolder.sometagView.setTags(Arrays.copyOf(tags, 6));
+            viewHolder.tagGroup.setTags(Arrays.copyOf(tags, 6));
         } else {
-            viewHolder.sometagView.setTags(tags);
+            viewHolder.tagGroup.setTags(tags);
         }
 
         viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -133,8 +133,8 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRe
         RatingBar ratingbar;
         @Bind(R.id.listitem_price)
         TextView listitemPrice;
-        @Bind(R.id.sometagView)
-        TagView sometagView;
+        @Bind(R.id.tag_group)
+        TagGroup tagGroup;
         @Bind(R.id.cardlist_item)
         CardView cardlistItem;
 

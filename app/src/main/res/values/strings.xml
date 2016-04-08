@@ -14,7 +14,7 @@
     <string name="error_key">key验证无效！</string>
     <string name="error_other">未知错误，请稍后重试!错误码为</string>
     <string name="no_result">对不起，没有搜索到相关数据！</string>
-    <string name="title_activity_gdmap">GDMapActivity</string>
+    <string name="title_activity_gdmap">GDMapActivity</string>d
     <string name="title_activity_login">Sign in</string>
 
     <!-- Strings related to login -->
@@ -64,4 +64,7 @@
     <string name="per_yuan">￥%s/人</string>
     <string name="comment_hint">在这里写下评论...</string>
     <string name="action_save">提交</string>
+    <string name="uncomplete_order">未完成订单</string>
+    <string name="complete_order">已完成</string>
+    <string name="bmob_key">8bb928ff8b09ee63a01e4c72a3090825</string>
 </resources>

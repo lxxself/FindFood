@@ -78,19 +78,11 @@
 
 
             </RelativeLayout>
-                <me.kaede.tagview.TagView
-                    android:id="@+id/wuli_tags"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:lineMargin="5dp"
-                    app:tagMargin="3dp"
-                    app:textPaddingBottom="5dp"
-                    app:textPaddingLeft="8dp"
-                    app:textPaddingRight="8dp"
-                    app:textPaddingTop="5dp" >
-                </me.kaede.tagview.TagView>
+            <me.gujun.android.taggroup.TagGroup
+                android:layout_marginLeft="10dp"
+                android:id="@+id/wuli_tags"
+                android:layout_marginTop="5dp"
+                style="@style/TagGroup.Inverse"/>
 
             </LinearLayout>
         </ScrollView>
@@ -107,83 +99,69 @@
         android:orientation="vertical"
         android:layout_width="400dp"
         android:layout_height="wrap_content">
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="15dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
+                android:layout_marginRight="5dp"
                 android:id="@+id/ic_person_add"
                 android:src="@drawable/ic_person_add"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-
-            <me.kaede.tagview.TagView
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/ic_person_add"
-                android:layout_alignBaseline="@id/ic_person_add"
-                android:id="@+id/renshu_tags"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:lineMargin="5dp"
-                app:tagMargin="3dp"
-                app:textPaddingBottom="5dp"
-                app:textPaddingLeft="8dp"
-                app:textPaddingRight="8dp"
-                app:textPaddingTop="5dp" >
-            </me.kaede.tagview.TagView>
-        </RelativeLayout>
-        <RelativeLayout
+                android:layout_height="wrap_content">
+                <me.gujun.android.taggroup.TagGroup
+                    app:atg_isCheckMode="true"
+                    android:id="@+id/renshu_tags"
+                    style="@style/TagGroup"/>
+            </FrameLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="15dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
+                android:layout_marginRight="5dp"
                 android:id="@+id/ic_people"
                 android:src="@drawable/ic_people"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-
-            <me.kaede.tagview.TagView
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/ic_people"
-                android:layout_alignBaseline="@id/ic_people"
-                android:id="@+id/tongban_tags"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:lineMargin="5dp"
-                app:tagMargin="3dp"
-                app:textPaddingBottom="5dp"
-                app:textPaddingLeft="8dp"
-                app:textPaddingRight="8dp"
-                app:textPaddingTop="5dp" >
-            </me.kaede.tagview.TagView>
-        </RelativeLayout>
-        <RelativeLayout
+                android:layout_height="wrap_content">
+                <me.gujun.android.taggroup.TagGroup
+                    app:atg_isCheckMode="true"
+                    android:id="@+id/tongban_tags"
+                    style="@style/TagGroup"/>
+            </FrameLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="15dp"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <ImageView
+                android:layout_marginRight="5dp"
                 android:id="@+id/ic_local_restaurant"
                 android:src="@drawable/ic_local_restaurant"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
-            <me.kaede.tagview.TagView
-                android:layout_marginLeft="10dp"
-                android:layout_toRightOf="@id/ic_local_restaurant"
-                android:layout_alignBaseline="@id/ic_local_restaurant"
-                android:id="@+id/mudi_tags"
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:lineMargin="5dp"
-                app:tagMargin="3dp"
-                app:textPaddingBottom="5dp"
-                app:textPaddingLeft="8dp"
-                app:textPaddingRight="8dp"
-                app:textPaddingTop="5dp" >
-            </me.kaede.tagview.TagView>
-        </RelativeLayout>
+                android:layout_height="wrap_content">
+                <me.gujun.android.taggroup.TagGroup
+                    app:atg_isCheckMode="true"
+                    android:id="@+id/mudi_tags"
+                    style="@style/TagGroup"/>
+            </FrameLayout>
+        </LinearLayout>
     </LinearLayout>
     <View
         android:layout_marginTop="5dp"
@@ -209,19 +187,16 @@
                     android:text="逻辑情境"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-                <me.kaede.tagview.TagView
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="10dp"
-                    android:id="@+id/luoji_tags"
+                <FrameLayout
+                    android:padding="10dp"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    app:lineMargin="5dp"
-                    app:tagMargin="3dp"
-                    app:textPaddingBottom="5dp"
-                    app:textPaddingLeft="8dp"
-                    app:textPaddingRight="8dp"
-                    app:textPaddingTop="5dp" >
-                </me.kaede.tagview.TagView>
+                    android:layout_height="wrap_content">
+                    <me.gujun.android.taggroup.TagGroup
+                        app:atg_isCheckMode="true"
+                        app:atg_isAppendMode="true"
+                        android:id="@+id/luoji_tags"
+                        style="@style/TagGroup"/>
+                </FrameLayout>
             </LinearLayout>
         </ScrollView>
 

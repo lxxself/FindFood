@@ -44,7 +44,7 @@ public class ShouyeFragment extends Fragment {
         FragmentTransaction ft = getFragmentManager().beginTransaction();
         mDropDownMenu = (DropDownMenu) view.findViewById(R.id.dropDownMenu);
         frameLayout = (FrameLayout) getActivity().getLayoutInflater().inflate(R.layout.frame_layout_shouye, null);
-        listShopFragment = new ListShopFragment(getContext(),getResources().getColor(R.color.bright_foreground_disabled_material_dark));
+        listShopFragment = new ListShopFragment(getContext());
         ft.replace(R.id.frame_shouye, listShopFragment, key).commit();
 
         initView();

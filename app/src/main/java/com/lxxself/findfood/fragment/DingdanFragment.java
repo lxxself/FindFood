@@ -8,7 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.lxxself.findfood.R;
 import com.lxxself.findfood.adapter.ViewPagerAdapter;
@@ -27,38 +26,13 @@ public class DingdanFragment extends Fragment {
 
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tablayout);
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-                switch (tab.getPosition()) {
-                    case 0:
-                        showToast("tab0");
-                        break;
-                    case 1:
-                        showToast("tab1");
-                        break;
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
-        });
         return view;
-    }
-    private void showToast(String msg) {
-        Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFrag(new ListOrderFragment(getContext(),false), "未完成订单");
-        adapter.addFrag(new ListOrderFragment(getContext(),true), "已完成");
+        adapter.addFrag(new ListOrderFragment(getContext(), false), getString(R.string.uncomplete_order));
+        adapter.addFrag(new ListOrderFragment(getContext(), true), getString(R.string.complete_order));
         viewPager.setAdapter(adapter);
     }
 }

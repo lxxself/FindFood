@@ -78,7 +78,6 @@
                 <EditText
                     android:text="4"
                     android:id="@+id/et_people_num"
-                    style="?android:textAppearanceLarge"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>

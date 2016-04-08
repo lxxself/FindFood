@@ -8,7 +8,6 @@ import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.lxxself.findfood.R;
 import com.lxxself.findfood.adapter.ViewPagerAdapter;
@@ -25,43 +24,16 @@ public class FaxianFragment extends Fragment {
         setupViewPager(viewPager);
 
         TabLayout tabLayout = (TabLayout) view.findViewById(R.id.tablayout);
+        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
         tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
-            @Override
-            public void onTabSelected(TabLayout.Tab tab) {
-                viewPager.setCurrentItem(tab.getPosition());
-                switch (tab.getPosition()) {
-                    case 0:
-
-                        break;
-                    case 1:
-
-                        break;
-                    case 2:
-
-                        break;
-                }
-            }
-
-            @Override
-            public void onTabUnselected(TabLayout.Tab tab) {
-            }
-
-            @Override
-            public void onTabReselected(TabLayout.Tab tab) {
-            }
-        });
         return view;
-    }
-    private void showToast(String msg) {
-        Toast.makeText(getContext(), msg, Toast.LENGTH_LONG).show();
     }
 
     private void setupViewPager(ViewPager viewPager) {
         ViewPagerAdapter adapter = new ViewPagerAdapter(getChildFragmentManager());
-        adapter.addFrag(new ListShopFragment(getContext(),getResources().getColor(R.color.accent_material_light)), "全部");
-        adapter.addFrag(new ListShopFragment(getContext(),getResources().getColor(R.color.ripple_material_light)), "小吃快餐");
-        adapter.addFrag(new ListShopFragment(getContext(),getResources().getColor(R.color.button_material_dark)), "咖啡厅");
+        adapter.addFrag(new ListShopFragment(getContext()), "全部");
+        adapter.addFrag(new ListShopFragment(getContext()), "小吃快餐");
+        adapter.addFrag(new ListShopFragment(getContext()), "咖啡厅");
         viewPager.setAdapter(adapter);
     }
 }

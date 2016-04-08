@@ -34,9 +34,7 @@ import com.lxxself.findfood.util.ToastUtil;
 
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
-import me.kaede.tagview.OnTagClickListener;
-import me.kaede.tagview.Tag;
-import me.kaede.tagview.TagView;
+import me.gujun.android.taggroup.TagGroup;
 
 import static com.lxxself.findfood.util.AppUtil.getCurrentTime;
 import static com.lxxself.findfood.util.AppUtil.getDateSx;
@@ -63,7 +61,7 @@ public class MainActivity extends NetLocationActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mContext = this;
-        Bmob.initialize(this, "8bb928ff8b09ee63a01e4c72a3090825");
+        Bmob.initialize(this, getString(R.string.bmob_key));
 
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -166,35 +164,21 @@ public class MainActivity extends NetLocationActivity
         currentTime.setText(getCurrentTime());
         weather.setText(mTemperature+"  "+mWeather);
 
-        final TagView wuliTagGroup = (TagView) contentView.findViewById(R.id.wuli_tags);
-        wuliTagGroup.addTags(new String[]{mLocationPOIText, getDateSx(), mWeather});
-        wuliTagGroup.setOnTagClickListener(new OnTagClickListener() {
+        final TagGroup wuliTagGroup = (TagGroup) contentView.findViewById(R.id.wuli_tags);
+        wuliTagGroup.setTags(new String[]{mLocationPOIText, getDateSx(), mWeather});
 
-            @Override
-            public void onTagClick(me.kaede.tagview.Tag tag, int position) {
-//                wuliTagGroup.defaultTags();
-//                tag.tagSelect();
-//                wuliTagGroup.drawTags();
-//                Toast.makeText(MainActivity.this,tag.text,Toast.LENGTH_LONG).show();
-            }
-        });
+        TagGroup renshuTagGroup = (TagGroup) contentView.findViewById(R.id.renshu_tags);
+        renshuTagGroup.setTags(new String[]{"1-2人", "3-4人", "5-8人", "8人以上"});
 
+        TagGroup tongbanTagGroup = (TagGroup) contentView.findViewById(R.id.tongban_tags);
+        tongbanTagGroup.setTags(new String[]{"朋友", "家人", "伴侣", "同事"});
 
-        TagView renshuTagGroup = (TagView) contentView.findViewById(R.id.renshu_tags);
-        renshuTagGroup.addTags(new String[]{"1-2人", "3-4人", "5-8人", "8人以上"});
+        TagGroup mudiTagGroup = (TagGroup) contentView.findViewById(R.id.mudi_tags);
+        mudiTagGroup.setTags(new String[]{"聚会", "果腹", "宴请", "休闲"});
 
-        TagView tongbanTagGroup = (TagView) contentView.findViewById(R.id.tongban_tags);
-        tongbanTagGroup.addTags(new String[]{"朋友", "家人", "伴侣", "同事"});
-
-        TagView mudiTagGroup = (TagView) contentView.findViewById(R.id.mudi_tags);
-        mudiTagGroup.addTags(new String[]{"聚会", "果腹", "宴请", "休闲"});
-
-        TagView luojiTagGroup = (TagView) contentView.findViewById(R.id.luoji_tags);
-        luojiTagGroup.addTags(new String[]{"开心", "兴奋", "肚子饿", "玩乐", "肚子饿", "玩乐", "肚子饿",
+        TagGroup luojiTagGroup = (TagGroup) contentView.findViewById(R.id.luoji_tags);
+        luojiTagGroup.setTags(new String[]{"开心", "兴奋", "肚子饿", "玩乐", "肚子饿", "玩乐", "肚子饿",
                 "玩乐", "肚子饿", "玩乐", "肚子饿", "玩乐", "肚子饿", "玩乐", "肚子饿", "玩乐", "肚子饿", "玩乐"});
-        Tag luojitag = new Tag("+添加标签");
-        luojitag.setIsAddButton(true);
-        luojiTagGroup.addTag(luojitag);
 
         popupWindow.setAnimationStyle(R.style.popwin_anim_style);
 
