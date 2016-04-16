@@ -23,6 +23,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
@@ -30,18 +31,25 @@ import com.lxxself.findfood.R;
 import com.lxxself.findfood.fragment.DingdanFragment;
 import com.lxxself.findfood.fragment.FaxianFragment;
 import com.lxxself.findfood.fragment.ShouyeFragment;
+import com.lxxself.findfood.util.SPUtils;
 import com.lxxself.findfood.util.ToastUtil;
+import com.socks.library.KLog;
 
+import java.util.Arrays;
+
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import cn.bmob.v3.Bmob;
 import cn.bmob.v3.BmobUser;
 import me.gujun.android.taggroup.TagGroup;
 
 import static com.lxxself.findfood.util.AppUtil.getCurrentTime;
 import static com.lxxself.findfood.util.AppUtil.getDateSx;
+import static com.lxxself.findfood.util.AppUtil.listToString;
 
 
 public class MainActivity extends NetLocationActivity
-        implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener, SearchView.OnCloseListener{
+        implements NavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener, SearchView.OnCloseListener {
 
     public static final int SHOUYE = 0;
     public static final int FAXIAN = 1;
@@ -55,6 +63,14 @@ public class MainActivity extends NetLocationActivity
     private BmobUser bmobUser;
     private View headerView;
     private int currentFlag = SHOUYE;
+    private View contentView;
+    private PopupWindow popupWindow;
+    private TagGroup wuliTagGroup;
+    private TagGroup renshuTagGroup;
+    private TagGroup tongbanTagGroup;
+    private TagGroup mudiTagGroup;
+    private TagGroup luojiTagGroup;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +88,7 @@ public class MainActivity extends NetLocationActivity
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         final CoordinatorLayout coordinatorLayout = (CoordinatorLayout) findViewById(R.id.CoordinatorLayout);
-        fab = (FloatingActionButton)findViewById(R.id.fab);
+        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -93,6 +109,7 @@ public class MainActivity extends NetLocationActivity
         navigationView.setNavigationItemSelectedListener(this);
 
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -154,50 +171,71 @@ public class MainActivity extends NetLocationActivity
 
     @TargetApi(Build.VERSION_CODES.KITKAT)
     private void showSituation(View v) {
-        View contentView = LayoutInflater.from(mContext).inflate(R.layout.situation_pop_window, null);
-        final PopupWindow popupWindow = new PopupWindow(contentView,
-              ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
-        TextView location = (TextView) contentView.findViewById(R.id.tv_location);
-        TextView currentTime = (TextView) contentView.findViewById(R.id.tv_time);
-        TextView weather = (TextView) contentView.findViewById(R.id.tv_weather);
-        location.setText(mLocationLatlngText);
-        currentTime.setText(getCurrentTime());
-        weather.setText(mTemperature+"  "+mWeather);
+        KLog.d((String) SPUtils.getShareData(MainActivity.this, "currentTags", ""));
 
-        final TagGroup wuliTagGroup = (TagGroup) contentView.findViewById(R.id.wuli_tags);
-        wuliTagGroup.setTags(new String[]{mLocationPOIText, getDateSx(), mWeather});
+        if (contentView == null) {
+            contentView = LayoutInflater.from(mContext).inflate(R.layout.situation_pop_window, null);
+            TextView location = (TextView) contentView.findViewById(R.id.tv_location);
+            TextView currentTime = (TextView) contentView.findViewById(R.id.tv_time);
+            TextView weather = (TextView) contentView.findViewById(R.id.tv_weather);
 
-        TagGroup renshuTagGroup = (TagGroup) contentView.findViewById(R.id.renshu_tags);
-        renshuTagGroup.setTags(new String[]{"1-2人", "3-4人", "5-8人", "8人以上"});
+            location.setText(mLocationLatlngText);
+            currentTime.setText(getCurrentTime());
+            weather.setText(mTemperature + "  " + mWeather);
 
-        TagGroup tongbanTagGroup = (TagGroup) contentView.findViewById(R.id.tongban_tags);
-        tongbanTagGroup.setTags(new String[]{"朋友", "家人", "伴侣", "同事"});
+            wuliTagGroup = (TagGroup) contentView.findViewById(R.id.wuli_tags);
+            wuliTagGroup.setTags(new String[]{mLocationPOIText, getDateSx(), mWeather});
 
-        TagGroup mudiTagGroup = (TagGroup) contentView.findViewById(R.id.mudi_tags);
-        mudiTagGroup.setTags(new String[]{"聚会", "果腹", "宴请", "休闲"});
+            renshuTagGroup = (TagGroup) contentView.findViewById(R.id.renshu_tags);
+            renshuTagGroup.setTags(new String[]{"1-2人", "3-4人", "5-8人", "8人以上"});
 
-        TagGroup luojiTagGroup = (TagGroup) contentView.findViewById(R.id.luoji_tags);
-        luojiTagGroup.setTags(new String[]{"开心", "兴奋", "肚子饿", "玩乐", "肚子饿", "玩乐", "肚子饿",
-                "玩乐", "肚子饿", "玩乐", "肚子饿", "玩乐", "肚子饿", "玩乐", "肚子饿", "玩乐", "肚子饿", "玩乐"});
+            tongbanTagGroup = (TagGroup) contentView.findViewById(R.id.tongban_tags);
+            tongbanTagGroup.setTags(new String[]{"朋友", "家人", "伴侣", "同事"});
 
-        popupWindow.setAnimationStyle(R.style.popwin_anim_style);
+            mudiTagGroup = (TagGroup) contentView.findViewById(R.id.mudi_tags);
+            mudiTagGroup.setTags(new String[]{"聚会", "果腹", "宴请", "休闲"});
 
-//        popupWindow.setTouchable(false);
-        popupWindow.setOutsideTouchable(true);
-        popupWindow.setTouchInterceptor(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return false;
-            }
+            luojiTagGroup = (TagGroup) contentView.findViewById(R.id.luoji_tags);
+            luojiTagGroup.setTags(new String[]{"开心", "兴奋", "肚子饿", "玩乐", "肚子饿", "玩乐", "肚子饿",
+                    "玩乐", "肚子饿", "玩乐", "肚子饿", "玩乐", "肚子饿", "玩乐", "肚子饿", "玩乐", "肚子饿", "玩乐"});
+            luojiTagGroup.setCanDelete(true);
+        }
+        if (popupWindow == null) {
+            popupWindow = new PopupWindow(contentView,
+                    ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+            popupWindow.setAnimationStyle(R.style.popwin_anim_style);
 
-        });
-        popupWindow.setBackgroundDrawable(getResources().getDrawable(
-                android.R.drawable.screen_background_light));
-//        popupWindow.showAtLocation((View) fab, Gravity.NO_GRAVITY, 0, fab.getHeight());
-        popupWindow.showAtLocation(fab,Gravity.BOTTOM,0,-fab.getHeight());
+    //        popupWindow.setTouchable(false);
+            popupWindow.setOnDismissListener(new PopupWindow.OnDismissListener() {
+                @Override
+                public void onDismiss() {
+                    StringBuilder tags = new StringBuilder();
+                    tags.append(listToString(Arrays.asList(wuliTagGroup.getTags())));
+                    tags.append(listToString(renshuTagGroup.getCheckedTags()));
+                    tags.append(listToString(tongbanTagGroup.getCheckedTags()));
+                    tags.append(listToString(mudiTagGroup.getCheckedTags()));
+                    tags.append(listToString(luojiTagGroup.getCheckedTags()));
+
+                    SPUtils.putShareData(MainActivity.this, "currentTags", tags.toString());
+                }
+            });
+
+            popupWindow.setOutsideTouchable(true);
+            popupWindow.setTouchInterceptor(new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    return false;
+                }
+
+            });
+            popupWindow.setBackgroundDrawable(getResources().getDrawable(
+                    android.R.drawable.screen_background_light));
+    //        popupWindow.showAtLocation((View) fab, Gravity.NO_GRAVITY, 0, fab.getHeight());
+        }
+        popupWindow.showAtLocation(fab, Gravity.BOTTOM, 0, -fab.getHeight());
+
+
     }
-
-
 
 
     @Override
@@ -205,7 +243,7 @@ public class MainActivity extends NetLocationActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        }else {
+        } else {
             super.onBackPressed();
         }
     }
@@ -275,14 +313,17 @@ public class MainActivity extends NetLocationActivity
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new ShouyeFragment()).commit();
         toolbar.setTitle("首页");
     }
+
     private void switchToFaxian() {
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new FaxianFragment()).commit();
         toolbar.setTitle("发现");
     }
+
     private void switchToDingdan() {
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new DingdanFragment()).commit();
         toolbar.setTitle("订单");
     }
+
     private void switchToShezhi() {
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new FaxianFragment()).commit();
         toolbar.setTitle("设置");
@@ -290,30 +331,31 @@ public class MainActivity extends NetLocationActivity
 
     @Override
     public boolean onQueryTextSubmit(String query) {
-        Log.d("onQueryTextSubmit",query);
+        Log.d("onQueryTextSubmit", query);
         getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new ShouyeFragment(2, query)).commit();
         return false;
     }
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new ShouyeFragment(1,"")).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new ShouyeFragment(1, "")).commit();
         return false;
     }
 
     @Override
     public boolean onClose() {
-        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new ShouyeFragment(0,"")).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.frame_content, new ShouyeFragment(0, "")).commit();
         return false;
     }
 
     private long exitTime = 0;
+
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK
                 && event.getAction() == KeyEvent.ACTION_DOWN) {
             if ((System.currentTimeMillis() - exitTime) > 3000) {
-                ToastUtil.showShort(this,getString(R.string.exit_once_more));
+                ToastUtil.showShort(this, getString(R.string.exit_once_more));
                 exitTime = System.currentTimeMillis();
             } else {
                 finish();
@@ -322,5 +364,43 @@ public class MainActivity extends NetLocationActivity
             return true;
         }
         return super.onKeyDown(keyCode, event);
+    }
+
+
+    static class PopupViewHolder {
+        @Bind(R.id.ic_pin_drop)
+        ImageView icPinDrop;
+        @Bind(R.id.tv_location)
+        TextView tvLocation;
+        @Bind(R.id.ic_access_time)
+        ImageView icAccessTime;
+        @Bind(R.id.tv_time)
+        TextView tvTime;
+        @Bind(R.id.ic_wb_cloudy)
+        ImageView icWbCloudy;
+        @Bind(R.id.tv_weather)
+        TextView tvWeather;
+        @Bind(R.id.wuli_tags)
+        TagGroup wuliTags;
+        @Bind(R.id.ic_person_add)
+        ImageView icPersonAdd;
+        @Bind(R.id.renshu_tags)
+        TagGroup renshuTags;
+        @Bind(R.id.ic_people)
+        ImageView icPeople;
+        @Bind(R.id.tongban_tags)
+        TagGroup tongbanTags;
+        @Bind(R.id.ic_local_restaurant)
+        ImageView icLocalRestaurant;
+        @Bind(R.id.mudi_tags)
+        TagGroup mudiTags;
+        @Bind(R.id.luoji_tags)
+        TagGroup luojiTags;
+        @Bind(R.id.cardview_pop)
+        LinearLayout cardviewPop;
+
+        PopupViewHolder(View view) {
+            ButterKnife.bind(this, view);
+        }
     }
 }

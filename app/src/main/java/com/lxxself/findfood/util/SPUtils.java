@@ -1,18 +1,27 @@
 package com.lxxself.findfood.util;
 
+import android.content.Context;
+import android.content.SharedPreferences;
+
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
-
-import android.content.Context;
-import android.content.SharedPreferences;
 
 public class SPUtils
 {
     /**
      * 保存在手机里面的文件名
      */
-//    public static final String FILE_NAME = "share_data";
+    public static final String FILE_NAME = "share_data";
+
+    public static Object getShareData(Context context, String key, Object defaultValue) {
+        return get(context, FILE_NAME, key, defaultValue);
+    }
+
+    public static void putShareData(Context context, String key, Object defaultValue) {
+        put(context, FILE_NAME, key, defaultValue);
+    }
+
 
     /**
      * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
@@ -21,7 +30,7 @@ public class SPUtils
      * @param key
      * @param object
      */
-    public static void put(Context context,String fileName, String key, Object object)
+    public static void put(Context context, String fileName, String key, Object object)
     {
 
         SharedPreferences sp = context.getSharedPreferences(fileName,
@@ -58,7 +67,7 @@ public class SPUtils
      * @param defaultObject
      * @return
      */
-    public static Object get(Context context,String fileName, String key, Object defaultObject)
+    public static Object get(Context context, String fileName, String key, Object defaultObject)
     {
         SharedPreferences sp = context.getSharedPreferences(fileName,
                 Context.MODE_PRIVATE);
@@ -87,7 +96,7 @@ public class SPUtils
      * @param context
      * @param key
      */
-    public static void remove(Context context,String fileName, String key)
+    private void remove(Context context,String fileName, String key)
     {
         SharedPreferences sp = context.getSharedPreferences(fileName,
                 Context.MODE_PRIVATE);
@@ -100,7 +109,7 @@ public class SPUtils
      * 清除所有数据
      * @param context
      */
-    public static void clear(Context context,String fileName)
+    private void clear(Context context,String fileName)
     {
         SharedPreferences sp = context.getSharedPreferences(fileName,
                 Context.MODE_PRIVATE);
@@ -115,7 +124,7 @@ public class SPUtils
      * @param key
      * @return
      */
-    public static boolean contains(Context context,String fileName, String key)
+    private boolean contains(Context context,String fileName, String key)
     {
         SharedPreferences sp = context.getSharedPreferences(fileName,
                 Context.MODE_PRIVATE);
@@ -127,7 +136,7 @@ public class SPUtils
      * @param context
      * @return
      */
-    public static Map<String, ?> getAll(Context context,String fileName)
+    private Map<String, ?> getAll(Context context,String fileName)
     {
         SharedPreferences sp = context.getSharedPreferences(fileName,
                 Context.MODE_PRIVATE);

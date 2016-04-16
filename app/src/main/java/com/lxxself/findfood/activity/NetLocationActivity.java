@@ -32,9 +32,7 @@ import java.util.List;
  * Created by lxxself on 2015/10/29.
  */
 public class NetLocationActivity extends AppCompatActivity implements AMapLocationListener, OnWeatherSearchListener {
-
-    public static final String MSG = "";
-    public static final String MSG1 = "";
+    
     protected String mLocationLatlngText="---";// 坐标信息
     protected String mLocationAccurancyText;// 定位精确信息
     protected String mLocationMethodText;// 定位方法信息
@@ -59,7 +57,6 @@ public class NetLocationActivity extends AppCompatActivity implements AMapLocati
     protected String mHumidity;
     protected String mReportTime;
     protected String mTemperature;
-    private String TAG ="NetLocationActivity";
     private WeatherSearchQuery mquery;
     private WeatherSearch mweathersearch;
     private LocalWeatherLive weatherlive;
@@ -70,80 +67,9 @@ public class NetLocationActivity extends AppCompatActivity implements AMapLocati
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        KLog.d(TAG, "onCreate: " + ToastUtil.sHA1(NetLocationActivity.this));
+        KLog.d("onCreate: " + ToastUtil.sHA1(NetLocationActivity.this));
         init();
     }
-//    @NeedsPermission(Manifest.permission.CAMERA)
-//    void showCamera() {
-//        // NOTE: Perform action that requires the permission. If this is run by PermissionsDispatcher, the permission will have been granted
-////        getSupportFragmentManager().beginTransaction()
-////                .replace(R.id.sample_content_fragment, CameraPreviewFragment.newInstance())
-////                .addToBackStack("camera")
-////                .commitAllowingStateLoss();
-//    }
-//
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        // NOTE: delegate the permission handling to generated method
-//        NetLocationActivityPermissionsDispatcher.onRequestPermissionsResult(this, requestCode, grantResults);
-//    }
-//
-//    @NeedsPermission({Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS})
-//    void showContacts() {
-//        // NOTE: Perform action that requires the permission.
-//        // If this is run by PermissionsDispatcher, the permission will have been granted
-////        getSupportFragmentManager().beginTransaction()
-////                .replace(R.id.sample_content_fragment, ContactsFragment.newInstance())
-////                .addToBackStack("contacts")
-////                .commitAllowingStateLoss();
-//    }
-//
-//    @OnShowRationale(Manifest.permission.CAMERA)
-//    void showRationaleForCamera(PermissionRequest request) {
-//        // NOTE: Show a rationale to explain why the permission is needed, e.g. with a diaKLog.
-//        // Call proceed() or cancel() on the provided PermissionRequest to continue or abort
-//        showRationaleDiaKLog(R.string.permission_camera_rationale, request);
-//    }
-//
-//    @OnShowRationale({Manifest.permission.READ_CONTACTS, Manifest.permission.WRITE_CONTACTS})
-//    void showRationaleForContact(PermissionRequest request) {
-//        // NOTE: Show a rationale to explain why the permission is needed, e.g. with a diaKLog.
-//        // Call proceed() or cancel() on the provided PermissionRequest to continue or abort
-//        showRationaleDiaKLog(R.string.permission_contacts_rationale, request);
-//    }
-//
-//    @OnPermissionDenied(Manifest.permission.CAMERA)
-//    void onCameraDenied() {
-//        // NOTE: Deal with a denied permission, e.g. by showing specific UI
-//        // or disabling certain functionality
-//        Toast.makeText(this, R.string.permission_camera_denied, Toast.LENGTH_SHORT).show();
-//    }
-//
-//    @OnNeverAskAgain(Manifest.permission.CAMERA)
-//    void onCameraNeverAskAgain() {
-//        Toast.makeText(this, R.string.permission_camera_never_askagain, Toast.LENGTH_SHORT).show();
-//    }
-//
-//
-//    private void showRationaleDiaKLog(@StringRes int messageResId, final PermissionRequest request) {
-//        new AlertDiaKLog.Builder(this)
-//                .setPositiveButton(R.string.button_allow, new DiaKLogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(@NonNull DiaKLogInterface diaKLog, int which) {
-//                        request.proceed();
-//                    }
-//                })
-//                .setNegativeButton(R.string.button_deny, new DiaKLogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(@NonNull DiaKLogInterface diaKLog, int which) {
-//                        request.cancel();
-//                    }
-//                })
-//                .setCancelable(false)
-//                .setMessage(messageResId)
-//                .show();
-//    }
 
     //DELL
 //8B:E1:94:CA:B0:A5:25:5E:4A:E3:0A:8B:0C:F4:1A:E3:DF:4D:78:61:
@@ -253,8 +179,8 @@ public class NetLocationActivity extends AppCompatActivity implements AMapLocati
                 mLocationPOIText = (aMapLocation.getPoiName());
                 mLocationCityCodeText = (aMapLocation.getCityCode());
                 mLocationAreaCodeText = (aMapLocation.getAdCode());
-                SPUtils.put(NetLocationActivity.this, "localtionInfo", "latitude", (float) aMapLocation.getLatitude());
-                SPUtils.put(NetLocationActivity.this, "localtionInfo", "longitude", (float) aMapLocation.getLongitude());
+                SPUtils.putShareData(NetLocationActivity.this, "latitude", (float) aMapLocation.getLatitude());
+                SPUtils.putShareData(NetLocationActivity.this, "longitude", (float) aMapLocation.getLongitude());
                 searchliveweather(aMapLocation.getCity());
                 
             } else {

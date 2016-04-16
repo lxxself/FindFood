@@ -1,1 +1,1 @@
-include ':app', ':DropDownMenu', ':multi-image-selector'
+include ':app', ':DropDownMenu', ':multi-image-selector', ':tagLib'

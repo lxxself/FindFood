@@ -103,8 +103,8 @@ public class RestaurantRecyclerAdapter extends RecyclerView.Adapter<RestaurantRe
 
 
     private String getDistance(float original_latitude, float original_longitude) {
-        float latitude = (float) SPUtils.get(context, "localtionInfo", "latitude", original_latitude);
-        float longitude = (float) SPUtils.get(context, "localtionInfo", "longitude", original_longitude);
+        float latitude = (float) SPUtils.getShareData(context, "latitude", original_latitude);
+        float longitude = (float) SPUtils.getShareData(context, "longitude", original_longitude);
         LatLng startLatlng = new LatLng(latitude, longitude);
         LatLng endLatlng = new LatLng(original_latitude, original_longitude);
         float distance = AMapUtils.calculateLineDistance(startLatlng, endLatlng) / 1000;
